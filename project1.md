@@ -6,4 +6,3 @@
 4. Understanding the software development cycle.
 5. I created the root server file with projectlamp
 6. changed the default directory to index.php
-7. 
