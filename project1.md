@@ -6,3 +6,4 @@
 4. Understanding the software development cycle.
 5. I created the root server file with projectlamp
 6. changed the default directory to index.php
+![first page](https://user-images.githubusercontent.com/71001536/161030091-86407796-74b1-4c2f-834a-571fe251718b.PNG)
