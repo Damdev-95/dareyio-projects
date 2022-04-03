@@ -13,6 +13,8 @@ A technology stack is a set of frameworks and tools used to develop a software p
 
 * Use the public IP on the instance for remote login on the Linux serve.
 * For my server login, I used Mobaxterm for remote administration.
+* Update the Linux package `sudo apt-get update` and install apache2 on the server.
+
 ## Step 2 — installing mysql and php
 * Install MySql server for database and PhP for the backend development
 
