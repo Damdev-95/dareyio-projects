@@ -72,9 +72,11 @@ phpinfo();
 ![lamp](https://user-images.githubusercontent.com/71001536/162164400-1ab60c3c-4d3d-4705-a497-fe43b9b5b6e6.PNG)
 
 * The data insert in the todo_list table is sucessfully saved on the databse
+
 ![lamp](https://user-images.githubusercontent.com/71001536/162191072-04286e90-622b-4642-ae04-696713926bc1.PNG)
 
 * The PHP script has been connected with the MySQL database when reaching the browser with the todo_list.php, it displays the page below
+
 ![lamp](https://user-images.githubusercontent.com/71001536/162192773-528fcff4-6acb-4abc-b083-67abb8375d57.PNG)
 
 
