@@ -33,6 +33,9 @@ curl -s http://169.254.169.254/latest/meta-data/public-ipv4
 ## Step 4 — Configuring Nginx to Use PHP Processor
 ![lamp](https://user-images.githubusercontent.com/71001536/161578368-86f9527a-80b6-4a74-aecd-6d8195e0c242.PNG)
 
+![lamp](https://user-images.githubusercontent.com/71001536/162160923-d19dda56-88a6-4688-8ad6-7b3d89ed9a66.PNG)
+
+
 ## Step 5 – Testing PHP with Nginx
 
 ![lamp](https://user-images.githubusercontent.com/71001536/162160423-5d7d9f67-a10c-42d7-9f5d-09e0a6abe6d0.PNG)
