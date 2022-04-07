@@ -47,9 +47,12 @@ sudo nginx -t
 ```
 ![lamp](https://user-images.githubusercontent.com/71001536/161578368-86f9527a-80b6-4a74-aecd-6d8195e0c242.PNG)
 
-* Create a test PHP file in the document root called info.php.
+* Create a test PHP file called info.php in the document root using nano editor
 ```
 sudo nano /var/www/projectLEMP/info.php
+```
+* Then, put the below commands in the test file 
+```
 <?php
 phpinfo();
 ```
