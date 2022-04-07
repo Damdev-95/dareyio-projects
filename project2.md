@@ -34,3 +34,6 @@ curl -s http://169.254.169.254/latest/meta-data/public-ipv4
 ![lamp](https://user-images.githubusercontent.com/71001536/161578368-86f9527a-80b6-4a74-aecd-6d8195e0c242.PNG)
 
 ## Step 5 – Testing PHP with Nginx
+
+![lamp](https://user-images.githubusercontent.com/71001536/162160423-5d7d9f67-a10c-42d7-9f5d-09e0a6abe6d0.PNG)
+
