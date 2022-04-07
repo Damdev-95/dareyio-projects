@@ -31,6 +31,9 @@ curl -s http://169.254.169.254/latest/meta-data/public-ipv4
 * In order to instal the php to serve dynamic web contents on the nginx server `sudo apt install php-fpm php-mysql`
 
 ## Step 4 — Configuring Nginx to Use PHP Processor
+
+![lamp](https://user-images.githubusercontent.com/71001536/162164400-1ab60c3c-4d3d-4705-a497-fe43b9b5b6e6.PNG)
+
 ![lamp](https://user-images.githubusercontent.com/71001536/161578368-86f9527a-80b6-4a74-aecd-6d8195e0c242.PNG)
 
 ![lamp](https://user-images.githubusercontent.com/71001536/162160923-d19dda56-88a6-4688-8ad6-7b3d89ed9a66.PNG)
