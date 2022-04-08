@@ -12,3 +12,11 @@ MERN Web stack consists of following components:
 ![lamp](https://user-images.githubusercontent.com/71001536/162260188-4384c5b4-bfb6-486b-844c-418ed074bdd7.PNG)
 
 ![image](https://user-images.githubusercontent.com/71001536/162261279-e069139b-47cc-405e-9631-a9ce535c056b.png)
+
+![image](https://user-images.githubusercontent.com/71001536/162401740-ffd814ef-c72a-4968-9d69-1cabc437c3ae.png)
+
+
+![image](https://user-images.githubusercontent.com/71001536/162401598-ae19a495-0d79-4029-be28-14dfbc19e5fa.png)
+
+![image](https://user-images.githubusercontent.com/71001536/162405192-f31e6584-ce07-4bb8-b246-bc6ad73af1e0.png)
+
