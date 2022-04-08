@@ -17,4 +17,5 @@
 * `mkdir folder1 && vim folder1` execute both commands together
 * `sudo chown -R $USER:$USER /folder_path` To change ownwership of folder 
 * `tree folder_name` to check the file structure of the folder 
-* 
+* `du` to check the size of file 
+* `
