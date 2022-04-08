@@ -3,6 +3,7 @@
 * `cd` change directory
 * `mkdir` create directory
 *  `rmdir` delete directory
+*  `cat` to display contents of a file
 *  `mkdir -p folder_1/folder_2/folder_3` create a nested folder 
 * `ls -la` long listing of all files
 * `touch` create a file
@@ -18,4 +19,6 @@
 * `sudo chown -R $USER:$USER /folder_path` To change ownwership of folder 
 * `tree folder_name` to check the file structure of the folder 
 * `du` to check the size of file 
-* `
+* `tree \ -L 1` to check the file structure of root directory with level 1
+* `bin` directory that contains binary files of the program codes
+* 
