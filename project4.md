@@ -8,8 +8,7 @@ MEAN Stack is a combination of following components:
 
 ## Step 1: Install NodeJs
 * Node.js is a JavaScript runtime built on Chrome’s V8 JavaScript engine. Node.js is used in this tutorial to set up the Express routes and AngularJS controllers
-
-
+![image](https://user-images.githubusercontent.com/71001536/162425672-e002c329-42a5-48e0-9781-d7f10c2d9129.png)
 
 ## Step 2: Install MongoDB
 
