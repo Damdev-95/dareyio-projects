@@ -31,4 +31,15 @@
 * `opt` option directory for custom softwares on the Linux.
 * `proc` process is an instance of a program, shows the proces `ls -l /proc | grep PID`
 * `root` directory for the root user
-
+* `run` temporary data used by process are kept there
+* `df -h` *disk free* to find information about space on disk
+* `free -h` to find information about the system memory
+* `id` Id for the user on the Linux system `ls /run/user`
+* `sbin` system binaries
+* `snap` package manger related to snap(Linux OS), similar to apt
+* `srv` service files are kept .
+* `sys` mounted on a virtual file system, 
+* `tempfs` file storage on the system memory
+* `tmp` temporary files and directories are kept on disk
+* `usr` program files are kept in this directory
+* `var` directory that stores data written on the system such as log ,spool(email, printer)
