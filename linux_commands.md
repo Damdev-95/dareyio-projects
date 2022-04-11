@@ -24,6 +24,11 @@
 * `boot` directory that has information relating to the boot of the OS
 * `dev` directory on device files, which is an interface to a device driver
 * `etc` directory where configuration files are kept for application.
-* `home` directory where users keep specific files and folders*user's domain*
-
+* `home` directory where users keep specific files and folders *user's domain*
+* `lib` directory for collection of resources used by system, *.so* extension for modules
+* `lost+found` directory for system recovery
+* `mnt` for mounting external drives or disks.
+* `opt` option directory for custom softwares on the Linux.
+* `proc` process is an instance of a program, shows the proces `ls -l /proc | grep PID`
+* `root` directory for the root user
 
