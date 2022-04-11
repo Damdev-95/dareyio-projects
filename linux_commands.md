@@ -21,4 +21,9 @@
 * `du` to check the size of file 
 * `tree \ -L 1` to check the file structure of root directory with level 1
 * `bin` directory that contains binary files of the program codes
-* 
+* `boot` directory that has information relating to the boot of the OS
+* `dev` directory on device files, which is an interface to a device driver
+* `etc` directory where configuration files are kept for application.
+* `home` directory where users keep specific files and folders*user's domain*
+
+
