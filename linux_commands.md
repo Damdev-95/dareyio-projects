@@ -47,3 +47,9 @@
 * `sudo useradd -m <username>` to create a user with home directory 
 * `sudo passwd <username>` to create a password for the user 
 * `sudo grep username /etc/passwd` or `cat /etc/passwd | grep username`
+* `inode` stores the metadata about a file 
+* `file table` stores the file name and inode number
+* `df -i` this indicates the size of inodes for a specific disk or partition 
+* `ls -i filename` to indicate the inode number of the file or directory
+* `stat filename` for details on a file
+* 
