@@ -43,3 +43,7 @@
 * `tmp` temporary files and directories are kept on disk
 * `usr` program files are kept in this directory
 * `var` directory that stores data written on the system such as log ,spool(email, printer)
+* `diff` to display the difference between two files 
+* `sudo useradd -m <username>` to create a user with home directory 
+* `sudo passwd <username>` to create a password for the user 
+* `sudo less /etc/passwd | grep username`
