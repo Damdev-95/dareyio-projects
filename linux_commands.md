@@ -46,4 +46,4 @@
 * `diff` to display the difference between two files 
 * `sudo useradd -m <username>` to create a user with home directory 
 * `sudo passwd <username>` to create a password for the user 
-* `sudo less /etc/passwd | grep username`
+* `sudo grep username /etc/passwd` or `cat /etc/passwd | grep username`
