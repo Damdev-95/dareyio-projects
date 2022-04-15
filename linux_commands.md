@@ -52,4 +52,4 @@
 * `df -i` this indicates the size of inodes for a specific disk or partition 
 * `ls -i filename` to indicate the inode number of the file or directory
 * `stat filename` for details on a file
-* 
+* `ssh-keygen -t rsa` generate ssh keys 
