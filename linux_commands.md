@@ -54,3 +54,4 @@
 * `stat filename` for details on a file
 * `ssh-keygen -t rsa` generate ssh keys 
 * `cat authorize_keys > id_rsa.pub` to overwrite the contents of public key with the given authorized keys
+* `ssh-copy-id username@public-io` 
