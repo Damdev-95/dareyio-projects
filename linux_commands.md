@@ -53,3 +53,4 @@
 * `ls -i filename` to indicate the inode number of the file or directory
 * `stat filename` for details on a file
 * `ssh-keygen -t rsa` generate ssh keys 
+* `cat authorize_keys > id_rsa.pub` to overwrite the contents of public key with the given authorized keys
