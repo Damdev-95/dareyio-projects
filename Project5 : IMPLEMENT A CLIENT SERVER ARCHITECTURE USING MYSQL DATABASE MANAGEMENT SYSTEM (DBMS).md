@@ -10,6 +10,8 @@ Server B name - mysql client
 
 `sudo apt install mysql_server`
 
+`sudo mysql_secure_installation`
+
 * On mysql client Linux Server install MySQL Client software
 
 `sudo apt install mysql_client`
