@@ -1,9 +1,13 @@
 ## IMPLEMENT A CLIENT SERVER ARCHITECTURE USING MYSQL DATABASE MANAGEMENT SYSTEM (DBMS)
 
 * Create and configure two Linux-based virtual servers (EC2 instances in AWS).
+```
+Server A name - mysql server
+Server B name - mysql client
+```
 
 * On mysql server Linux Server install MySQL Server software
-`sudo apt install mysql_server
+`sudo apt install mysql_server`
 
 * On mysql client Linux Server install MySQL Client software
 `sudo apt install mysql_client`
@@ -14,4 +18,8 @@
 
 * Create a user on the mysql with password for authentication
 `  CREATE USER 'remote_user'@'%' IDENTIFIED WITH mysql_native_password BY 'damilare' `
+
+* To extract the  local IP on the mysql server for the security inbound rules
+`ip addr show`
+
 
