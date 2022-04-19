@@ -16,7 +16,7 @@ Server B name - mysql client
 
 * MySQL server uses TCP port 3306 by default, so you will have to open it by creating a new entry in ‘Inbound rules’ in ‘mysql server’ Security Groups. 
 
-* There is a need to configure to server to allow connections from remote host
+* There is a need to change the bind-address from 127.0.0.1 to 0.0.0.0 , to enable the server to allow connections from remote host
 
 `sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf`
 
