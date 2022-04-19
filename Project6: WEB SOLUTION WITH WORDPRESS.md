@@ -9,3 +9,13 @@ Three-tier Architecture is a client-server software architecture pattern that co
 * Business Layer (BL): This is the backend program that implements business logic. Application or Webserver
 * Data Access or Management Layer (DAL): This is the layer for computer data storage and data access. 
   Database Server or File System Server such as FTP server, or NFS Server
+  
+  ## LAUNCH AN EC2 INSTANCE THAT WILL SERVE AS “WEB SERVER”.
+ 
+ ![image](https://user-images.githubusercontent.com/71001536/164032944-74deb8a0-ba22-4d66-8733-69f96dc2c82e.png)
+ 
+ ![image](https://user-images.githubusercontent.com/71001536/164033917-f9d4e8b9-68d9-4060-aa55-5e2c24356ded.png)
+
+
+ 
+  
