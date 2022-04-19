@@ -6,7 +6,7 @@ Server A name - mysql server
 Server B name - mysql client
 ```
 
-* On mysql server Linux Server install MySQL Server software
+* Install MySQL Server software on the MySQL server with the secure installation configuration
 
 `sudo apt install mysql_server`
 
@@ -44,5 +44,12 @@ GRANT ALL ON  example_db.* TO `remote_user`@`%` WITH GRANT OPTION;
 `sudo mysql -u remote_user -h <private-ip> -p`
 
 ![image](https://user-images.githubusercontent.com/71001536/164017691-dfe1cf3e-7115-4e9f-8d18-925a6a622627.png)
+
+* To confirm the client-server architecture, display the database name from the client side
+
+`show databases;`
+
+![image](https://user-images.githubusercontent.com/71001536/164019262-05cc56f0-c67e-45b0-aa27-07b7e56782de.png)
+
 
 
