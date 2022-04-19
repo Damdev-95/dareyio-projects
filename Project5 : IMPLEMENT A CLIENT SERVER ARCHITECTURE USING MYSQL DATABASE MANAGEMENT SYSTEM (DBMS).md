@@ -49,6 +49,8 @@ GRANT ALL ON  example_db.* TO `remote_user`@`%` WITH GRANT OPTION;
 
 `show databases;`
 
+`select user,host from mysql.user;`
+
 ![image](https://user-images.githubusercontent.com/71001536/164019262-05cc56f0-c67e-45b0-aa27-07b7e56782de.png)
 
 
