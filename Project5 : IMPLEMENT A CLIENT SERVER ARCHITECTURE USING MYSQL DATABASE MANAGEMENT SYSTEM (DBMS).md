@@ -20,6 +20,8 @@ Server B name - mysql client
 
 `sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf`
 
+`sudo systemstl restart mysql`
+
 * Create a user on the mysql server with password for authentication 
 
 `  CREATE USER 'remote_user'@'%' IDENTIFIED WITH mysql_native_password BY 'damilare' ;`
@@ -35,5 +37,10 @@ CREATE DATABASE example_db;
 GRANT ALL ON  example_db.* TO `remote_user`@`%` WITH GRANT OPTION;
 
 ```
+* From the client, connecting to the server using the remote_user credentials
+
+`sudo mysql -u remote_user -h <private-ip> -p`
+
+![image](https://user-images.githubusercontent.com/71001536/164017691-dfe1cf3e-7115-4e9f-8d18-925a6a622627.png)
 
 
