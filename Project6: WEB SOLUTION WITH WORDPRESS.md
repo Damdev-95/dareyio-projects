@@ -105,6 +105,8 @@ sudo systemctl daemon-reload
 ```
 ![image](https://user-images.githubusercontent.com/71001536/164261579-2d158e3c-6112-43a0-bb24-c08984e69e0e.png)
 
+## Step 3 — Install WordPress on your Web Server EC2
+
 * Update the repository 
 `sudo yum -y update`
 * Install wget, Apache and it’s dependencies
