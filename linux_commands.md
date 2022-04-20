@@ -90,4 +90,11 @@ unzip archived.tar.zip
 ## PROCESS MANAGEMENT 
 * `jobs` to know the running processs
 * `bg %jobs_number` to run the process in the background
-* 
+* `nohup firefox &` to run firefox even system hbernate or logout won't affect
+* `less /tmp/process_state` 
+* `kill -l` different form of signals 
+* `ps -ef | grep python
+* `ps` to list the process running on the system
+* `ps -lf` list process in the current shell
+* daemons are process that run in the background
+* service: still a daemon but there is control over starting, stopping it 
