@@ -53,11 +53,11 @@
 * `ls -i filename` to indicate the inode number of the file or directory
 * `stat filename` for details on a file
 * `cat authorize_keys > id_rsa.pub` to overwrite the contents of public key with the given authorized keys
-* `sudo useradd -m username -G groupname` add new users in a group
+* `sudo useradd -m username -G groupname -s bin/bash` add new users in a group
 * `sudo groupadd groupname` to create a new group 
 * `sudo passwd username` to enter a password for username
 * `sudo usermod -a -G groupname username` modify username with a group
-* `sudo userdel`
+* `sudo userdel username` to delete a user 
 * `tar -cvf archived.tar file` to aarchive file
 * `tar -xvf archived.tar` to extract from an archive
 * `tar -czvf archived.tar.gz file` to archive and zip file
@@ -78,3 +78,16 @@ unzip archived.tar.zip
 * A key pair needs to exist, public key and private key 
 * * `ssh-keygen -t rsa` generate ssh keys 
 * `ssh-copy-id -i /home/ubuntu/.ssh/id_rsa.pub  remote_username@public-ip` to transfer ssh public key to the remote server from the client.
+* `sudo vim /etc/sudoers` the file contains sudoers , to grant user root priviledges.
+* `sudo visudo -c` to test and confirm the sudoers configuration
+
+![image](https://user-images.githubusercontent.com/71001536/164191831-f027adb1-5c56-4dfc-8a74-03e01ba28a9e.png)
+
+* `sudo ls -latr /etc/ssh/sshd_config` 
+* `sudo sshd -t`
+* `scp -r remote_user@public_ip folder` to trnasfer file directories to remote server.
+
+## PROCESS MANAGEMENT 
+* `jobs` to know the running processs
+* `bg %jobs_number` to run the process in the background
+* 
