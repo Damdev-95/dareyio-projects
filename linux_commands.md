@@ -55,3 +55,20 @@
 * `ssh-keygen -t rsa` generate ssh keys 
 * `cat authorize_keys > id_rsa.pub` to overwrite the contents of public key with the given authorized keys
 * `ssh-copy-id username@public-io` 
+* `sudo useradd -m username -G groupname` add new users in a group
+* `sudo groupadd groupname` to create a new group 
+* `sudo passwd username` to enter a password for username
+* `sudo usermod -a -G groupname username` modify username with a group
+* `sudo userdel`
+* `tar -cvf archived.tar file` to aarchive file
+* `tar -xvf archived.tar` to extract from an archive
+* `tar -czvf archived.tar.gz file` to archive and zip file
+* 
+```
+bzip2 archived.tar
+bunzip2 archived.tar.bz2
+zip archived.tar.zip archived.tar
+zip -p password@123 folder.zip folder
+unzip archived.tar.zip
+```
+* 
