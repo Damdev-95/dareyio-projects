@@ -42,7 +42,7 @@ sudo pvcreate /dev/xvdf1 /dev/xvdg1 /dev/xvdh1
 ![image](https://user-images.githubusercontent.com/71001536/164229876-89fb3e7c-ce25-402d-8b1c-a48643332045.png)
 * Use `vgcreate` utility to add all 3 PVs to a volume group (VG). Name the VG webdata-vg and verify the sucessfully created volume group using `sudo vgs`
 ```
-sudo vgcreate webdata-vg /dev/xvdh1 /dev/xvdg1 /dev/xvdf1
+sudo vgcreate vg-webdata /dev/xvdh1 /dev/xvdg1 /dev/xvdf1
 ```
 ![image](https://user-images.githubusercontent.com/71001536/164231353-6676f0da-49fe-4b3c-b11b-7f9f275cfad2.png)
 
@@ -56,6 +56,54 @@ sudo lvcreate -n logs-lv -L 14G vg-webdata
 
 ![image](https://user-images.githubusercontent.com/71001536/164232617-f700addc-5dc1-4f3c-9082-928c244e2ca4.png)
 
+![image](https://user-images.githubusercontent.com/71001536/164245803-0f048756-f35e-4930-87c5-bdebad255a61.png)
+* Attaching another */dev/xvdi*, create a physical volume, add to vg-webdata , then
+`sudo lvx -n apps-lv -L 25G vg-webdata`
+
+* Use mkfs.ext4 to format the logical volumes with ext4 filesystem
+
+```
+ sudo mkfs.ext4 /dev/vg-webdata/apps-lv
+ sudo mkfs.ext4 /dev/vg-webdata/logs-lv
+
+```
+
+* Create /var/www/html directory to store website files `sudo mkdir -p /var/www/html`
+
+* Create /home/recovery/logs to store backup of log data
+`sudo mkdir -p /home/recovery/logs`
+
+* Mount /var/www/html on apps-lv logical volume 
+`sudo mount /dev/vg-webdata/apps-lv /var/www/html/`
+
+* Use rsync utility to backup all the files in the log directory /var/log into /home/recovery/logs (This is required before mounting the file system)
+`sudo rsync -av /var/log/. /home/recovery/logs/`
+
+* Mount /var/log on logs-lv logical volume. (Note that all the existing data on /var/log will be deleted. That is the previous step is very
+important)
+`sudo mount /dev/vg-webdata/logs-lv /var/log`
+
+* Restore log files back into /var/log directory 
+`sudo rsync -av /home/recovery/logs/. /var/log`
+
+![image](https://user-images.githubusercontent.com/71001536/164255043-5f07dbc1-4da2-4def-b9c5-e0866c319698.png)
+* check the UUID of the volume 
+![image](https://user-images.githubusercontent.com/71001536/164262022-0cc4095a-47b7-4dc9-bfbc-e0d33b29136e.png)
+
+
+* Update /etc/fstab file so that the mount configuration will persist after restart of the server
+```
+sudo vim /etc/fstab
+```
+
+![image](https://user-images.githubusercontent.com/71001536/164260840-1a32c960-dfc1-414e-9ee9-4161d3b510a2.png)
+
+* Test the configuration and reload the daemon
+```
+sudo mount -a
+sudo systemctl daemon-reload
+```
+![image](https://user-images.githubusercontent.com/71001536/164261579-2d158e3c-6112-43a0-bb24-c08984e69e0e.png)
 
 
 
