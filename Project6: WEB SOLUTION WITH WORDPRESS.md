@@ -40,6 +40,24 @@ sudo pvcreate /dev/xvdf1 /dev/xvdg1 /dev/xvdh1
 * Verify that the Physical volume has been created successfully by running `sudo pvs`
 
 ![image](https://user-images.githubusercontent.com/71001536/164229876-89fb3e7c-ce25-402d-8b1c-a48643332045.png)
+* Use `vgcreate` utility to add all 3 PVs to a volume group (VG). Name the VG webdata-vg and verify the sucessfully created volume group using `sudo vgs`
+```
+sudo vgcreate webdata-vg /dev/xvdh1 /dev/xvdg1 /dev/xvdf1
+```
+![image](https://user-images.githubusercontent.com/71001536/164231353-6676f0da-49fe-4b3c-b11b-7f9f275cfad2.png)
+
+* Use `lvcreate` utility to create 2 logical volumes. apps-lv (Use half of the PV size), and logs-lv Use the remaining space of the PV size. NOTE: apps-lv will be used to store data for the Website while, logs-lv will be used to store data for logs.
+
+```
+sudo lvcreate -n apps-lv -L 14G vg-webdata
+sudo lvcreate -n logs-lv -L 14G vg-webdata
+```
+
+
+![image](https://user-images.githubusercontent.com/71001536/164232617-f700addc-5dc1-4f3c-9082-928c244e2ca4.png)
+
+
+
 
  
   
