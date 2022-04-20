@@ -63,8 +63,7 @@
 * `tar -cvf archived.tar file` to aarchive file
 * `tar -xvf archived.tar` to extract from an archive
 * `tar -czvf archived.tar.gz file` to archive and zip file
-* 
-```
+* ```
 bzip2 archived.tar
 bunzip2 archived.tar.bz2
 zip archived.tar.zip archived.tar
