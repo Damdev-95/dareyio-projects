@@ -52,9 +52,7 @@
 * `df -i` this indicates the size of inodes for a specific disk or partition 
 * `ls -i filename` to indicate the inode number of the file or directory
 * `stat filename` for details on a file
-* `ssh-keygen -t rsa` generate ssh keys 
 * `cat authorize_keys > id_rsa.pub` to overwrite the contents of public key with the given authorized keys
-* `ssh-copy-id username@public-io` 
 * `sudo useradd -m username -G groupname` add new users in a group
 * `sudo groupadd groupname` to create a new group 
 * `sudo passwd username` to enter a password for username
@@ -63,11 +61,20 @@
 * `tar -cvf archived.tar file` to aarchive file
 * `tar -xvf archived.tar` to extract from an archive
 * `tar -czvf archived.tar.gz file` to archive and zip file
-* ```
+* 
+```
 bzip2 archived.tar
 bunzip2 archived.tar.bz2
 zip archived.tar.zip archived.tar
 zip -p password@123 folder.zip folder
 unzip archived.tar.zip
 ```
-* 
+* `du -h` to view the disk usage in human readable format
+* `snap` comes in due to the framented nature of linux distros, debian and redhat
+* using snap tool to install software irrespective of the distros
+* `yum` interact with the redhat package
+* payload is the actual data within a packet
+* SSH - secure shell, being able to connect to remote server in a secure way
+* A key pair needs to exist, public key and private key 
+* * `ssh-keygen -t rsa` generate ssh keys 
+* `ssh-copy-id -i /home/ubuntu/.ssh/id_rsa.pub  remote_username@public-ip` to transfer ssh public key to the remote server from the client.
