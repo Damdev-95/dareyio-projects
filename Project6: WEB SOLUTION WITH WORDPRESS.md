@@ -105,6 +105,23 @@ sudo systemctl daemon-reload
 ```
 ![image](https://user-images.githubusercontent.com/71001536/164261579-2d158e3c-6112-43a0-bb24-c08984e69e0e.png)
 
+## Step 2 - db
+
+![image](https://user-images.githubusercontent.com/71001536/164423344-85c16ae4-cba5-40c7-bd0f-5a15f24663d9.png)
+
+`sudo vgcreate vg-database /dev/xvdf1 /dev/xvdg1 /dev/xvdh1`
+
+`sudo lvcreate -n db-lv -L 20G vg-database`
+
+`sudo mkfs.ext4 /dev/vg-database/db-lv`
+
+![image](https://user-images.githubusercontent.com/71001536/164425302-42d6d0a4-add4-44be-ae18-05757895609f.png)
+
+![image](https://user-images.githubusercontent.com/71001536/164430304-a7fcf43f-2d0e-415d-b9f4-ac5b7a02c2f5.png)
+
+
+
+
 ## Step 3 — Install WordPress on your Web Server EC2
 
 * Update the repository 
@@ -147,3 +164,44 @@ sudo chown -R apache:apache /var/www/html/wordpress
 sudo chcon -t httpd_sys_rw_content_t /var/www/html/wordpress -R
 sudo setsebool -P httpd_can_network_connect=1
 ```
+
+## Step 4 — Install MySQL on your DB Server EC2
+* This step include the installation of mysql-server on the Database server
+```
+sudo yum update
+sudo yum install mysql-server
+```
+* Verify that the service is up and running by using
+```
+sudo systemctl restart mysqld
+sudo systemctl enable mysqld
+```
+
+![image](https://user-images.githubusercontent.com/71001536/164432458-32d12089-3103-4b9c-ac79-6c3e4da1c176.png)
+
+
+## Step 5 — Configure DB to work with WordPress
+```
+sudo mysql
+CREATE DATABASE wordpress;
+CREATE USER `myuser`@`172.31.5.140` IDENTIFIED BY 'mypass';
+GRANT ALL ON wordpress.* TO 'myuser'@'172.31.5.140';
+FLUSH PRIVILEGES;
+SHOW DATABASES;
+exit
+```
+
+Using `ip addr show` to check the private ip on the web server.
+
+![image](https://user-images.githubusercontent.com/71001536/164433422-89a5f91e-4112-40f6-b970-d26d5ab294ce.png)
+
+## Step 6 — Configure WordPress to connect to remote database.
+
+![image](https://user-images.githubusercontent.com/71001536/164440215-e4e64674-c19c-4745-abbd-0f85b1c49335.png)
+
+## ENCOUNTER THIS ERROR
+![image](https://user-images.githubusercontent.com/71001536/164441501-d01c7a5d-5ed9-4085-83d9-5f9c96f2604a.png)
+
+* This requires to debug and troubleshoot
+* The issue is from the WordPress database credentials are stored in the wp-config.php file
+
