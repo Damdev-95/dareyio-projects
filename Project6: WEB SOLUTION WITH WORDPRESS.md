@@ -204,4 +204,18 @@ Using `ip addr show` to check the private ip on the web server.
 
 * This requires to debug and troubleshoot
 * The issue is from the WordPress database credentials are stored in the wp-config.php file
+* adding the bind-address (0.0.0.0) in the */etc/my.cnf*
+`sudo vim /etc/my.cnf`
+`sudo systemctl restart mysqld`
+
+![image](https://user-images.githubusercontent.com/71001536/164462630-61a09584-ee1a-4bd3-a92b-bc43ad585809.png)
+
+
+![image](https://user-images.githubusercontent.com/71001536/164461928-d65818c2-a63e-4b68-8ce4-c9f113ecc188.png)
+
+![image](https://user-images.githubusercontent.com/71001536/164463389-6a49589e-0d52-4618-9edd-c9099c6fe0f9.png)
+
+![image](https://user-images.githubusercontent.com/71001536/164463529-510e08b3-4445-43bf-8c37-54416d0d0ff2.png)
+
+
 
