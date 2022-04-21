@@ -5,7 +5,15 @@
 * Github track the history of commits
 These are changes made on a repos
 `mkdir my_repo && cd my_repo`
+
 `git init` intializing a git repo
+
 `git add .`
+
 `git commit -m "message"`
+
+`git checkout -b new_branch` to create and switch a new branch
+
+`git checkout master` to checkout to master branch
+
 
