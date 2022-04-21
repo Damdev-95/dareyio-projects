@@ -16,4 +16,12 @@ These are changes made on a repos
 
 `git checkout master` to checkout to master branch
 
+`git merge master` to put the file in branch to the master
 
+
+`git remote add origin https://GitHub/repo`
+
+
+`git push -u origin master` push to the upstream in the master branch 
+
+`git pull origin master` to get the latest files on the remote repo
