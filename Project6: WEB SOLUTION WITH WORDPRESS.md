@@ -105,7 +105,10 @@ sudo systemctl daemon-reload
 ```
 ![image](https://user-images.githubusercontent.com/71001536/164261579-2d158e3c-6112-43a0-bb24-c08984e69e0e.png)
 
-## Step 2 - db
+## Step 2 — Prepare the Database Server
+
+* Use the RedHat Linux for the database server.
+Repeat the same steps as for the Web Server, but instead of apps-lv create db-lv and mount it to /db directory instead of /var/www/html/.
 
 ![image](https://user-images.githubusercontent.com/71001536/164423344-85c16ae4-cba5-40c7-bd0f-5a15f24663d9.png)
 
