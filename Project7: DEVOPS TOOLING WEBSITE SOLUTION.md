@@ -56,11 +56,10 @@ sudo vi /etc/exports
 /mnt/apps <Subnet-CIDR>(rw,sync,no_all_squash,no_root_squash)
 /mnt/logs <Subnet-CIDR>(rw,sync,no_all_squash,no_root_squash)
 /mnt/opt <Subnet-CIDR>(rw,sync,no_all_squash,no_root_squash)
-
-Esc + :wq!
-
-sudo exportfs -arv
 ```
+* Then export the filesystem to the clients
+
+`sudo exportfs -arv`
 
 ![image](https://user-images.githubusercontent.com/71001536/164701453-fb7140bf-9d81-4986-9cc4-fd0a0837b62c.png)
 
@@ -71,4 +70,53 @@ sudo exportfs -arv
 ![image](https://user-images.githubusercontent.com/71001536/164702126-536e456a-cafd-4381-89c8-deee38e9312c.png)
 
 ![image](https://user-images.githubusercontent.com/71001536/164702682-23c60939-eafc-48ff-8055-033926683fb3.png)
+
+## STEP 2 — CONFIGURE THE DATABASE SERVER
+`CREATE USER 'webaccess'@'%' IDENTIFIED BY 'damilare';`
+
+![image](https://user-images.githubusercontent.com/71001536/164713809-60df0cf3-b3a3-4337-9df8-00ba776c1d0f.png)
+
+```
+ grant all privileges on tooling.* to 'webaccess'@'%';
+ flush privileges;
+ ```
+ 
+##  Step 3 — Prepare the Web Servers
+```
+#!/bin/bash
+
+sudo yum install nfs-utils nfs4-acl-tools -y
+sudo mkdir -p /var/www
+sudo mount -t nfs -o rw,nosuid 172.31.19.201:/mnt/apps /var/www
+sudo echo "172.31.19.201:/mnt/apps /var/www     xfs defaults 0 0" >> /etc/fstab
+
+sudo yum install httpd -y
+
+sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y
+
+sudo dnf install dnf-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
+
+sudo dnf module reset php -y
+
+sudo dnf module enable php:remi-7.4
+
+sudo dnf install php php-opcache php-gd php-curl php-mysqlnd -y
+
+sudo systemctl start php-fpm
+
+sudo systemctl enable php-fpm
+
+sudo setsebool -P httpd_execmem 1
+
+```
+* for automating the installation of the web servers using bash scrpiting , use the bash commands above;
+
+`sudo nano test.sh && sudo chmod +x test.sh`
+
+![image](https://user-images.githubusercontent.com/71001536/164731933-67b30843-ffaa-4392-a144-b693b93fa587.png)
+
+
+![image](https://user-images.githubusercontent.com/71001536/164746016-045f32dd-8c35-48cb-95a6-fc4ed3605812.png)
+
+![image](https://user-images.githubusercontent.com/71001536/164746168-453dd093-5db6-4d5e-9318-2a60a9cf4235.png)
 
