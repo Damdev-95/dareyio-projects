@@ -1,3 +1,5 @@
+## 
+
 ## STEP 1 – PREPARE NFS SERVER
 
 * Spin up a new EC2 instance with RHEL Linux 8 Operating System
@@ -143,6 +145,9 @@ sudo yum install mysql -y
 mysql -u webaccess -h 172.31.10.110 -p tooling
 ```
 ![image](https://user-images.githubusercontent.com/71001536/165105518-cad13871-9852-4d0f-a83c-7b67b8b8fabe.png)
+
+* 
+
 
 * Edit the *functions.php* file in the html directory on the web server
 
