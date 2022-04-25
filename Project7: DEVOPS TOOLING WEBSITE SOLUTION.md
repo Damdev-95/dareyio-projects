@@ -72,6 +72,9 @@ sudo vi /etc/exports
 ![image](https://user-images.githubusercontent.com/71001536/164702682-23c60939-eafc-48ff-8055-033926683fb3.png)
 
 ## STEP 2 — CONFIGURE THE DATABASE SERVER
+
+`create database tooling`
+
 `CREATE USER 'webaccess'@'%' IDENTIFIED BY 'damilare';`
 
 ![image](https://user-images.githubusercontent.com/71001536/164713809-60df0cf3-b3a3-4337-9df8-00ba776c1d0f.png)
@@ -119,4 +122,38 @@ sudo setsebool -P httpd_execmem 1
 ![image](https://user-images.githubusercontent.com/71001536/164746016-045f32dd-8c35-48cb-95a6-fc4ed3605812.png)
 
 ![image](https://user-images.githubusercontent.com/71001536/164746168-453dd093-5db6-4d5e-9318-2a60a9cf4235.png)
+
+![image](https://user-images.githubusercontent.com/71001536/165098739-6f8cde11-13cf-4813-8b75-968006a3caf4.png)
+
+* Move contents of the html folder to the present working directoty
+`sudo mv ./html/* .`
+
+* Connect the database to the webservers.
+* Edit the bind address in the mysqld.conf
+
+` sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf`
+
+`sudo systemctl restart mysqld`
+
+![image](https://user-images.githubusercontent.com/71001536/165102307-56295862-05f1-4c01-b0d1-66e2f3876376.png)
+
+* Install MySQL client on the database and connect to the MySQL server on the DB.
+```
+sudo yum install mysql -y
+mysql -u webaccess -h 172.31.10.110 -p tooling
+```
+![image](https://user-images.githubusercontent.com/71001536/165105518-cad13871-9852-4d0f-a83c-7b67b8b8fabe.png)
+
+* Edit the *functions.php* file in the html directory on the web server
+
+`sudo nano functions.php`
+
+![image](https://user-images.githubusercontent.com/71001536/165106463-ec6aceb0-3bd5-4e9a-94f3-07a378882643.png)
+
+* I had no permission  Error – check permissions to your /var/www/html folder and also disable SELinux 
+`sudo setenforce 0`
+
+* Edit the file `sudo vim /etc/etc/sysconfig/selinux` and  set SELINUX=disabled
+
+![image](https://user-images.githubusercontent.com/71001536/165115008-0eb4f007-4e3e-4a93-b23b-8d1ff3ca2532.png)
 
