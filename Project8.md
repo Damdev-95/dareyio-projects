@@ -20,6 +20,11 @@ Another approach used to cater for increased traffic is "horizontal scaling" –
 
 ![image](https://user-images.githubusercontent.com/71001536/165275052-d7695e1b-d0cc-4b92-942f-633a1c18658f.png)
 
+* The NFS server *mnt/apps* has the html directory
+
+![image](https://user-images.githubusercontent.com/71001536/165284467-8e52faeb-8700-44bf-ad13-54b05c07b1b5.png)
+
+
 * Install Apache Load Balancer on Project-8-apache-lb server and configure it to point traffic coming to LB to both Web Servers:
 ```
 #Install apache2
