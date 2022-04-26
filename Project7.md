@@ -125,6 +125,8 @@ sudo setsebool -P httpd_execmem 1
 
 ![image](https://user-images.githubusercontent.com/71001536/165098739-6f8cde11-13cf-4813-8b75-968006a3caf4.png)
 
+* Clone the repo from the github account 
+
 * Move contents of the html folder to the present working directoty
 `sudo mv ./html/* .`
 
