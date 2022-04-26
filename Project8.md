@@ -9,8 +9,14 @@ Another approach used to cater for increased traffic is "horizontal scaling" –
 ![image](https://user-images.githubusercontent.com/71001536/165248521-7e49a2e8-d5b4-4a13-84f9-889293cd197d.png)
 
 ## This is implemented using the Project 7 
-Two RHEL8 Web Servers
-One MySQL DB Server (based on Ubuntu 20.04)
-One RHEL8 NFS server
+
+* Two RHEL8 Web Servers
+* One MySQL DB Server (based on Ubuntu 20.04)
+* One RHEL8 NFS server
 
 ![image](https://user-images.githubusercontent.com/71001536/165253195-ff07fa98-23e5-402c-9327-ce0dc6fd623e.png)
+
+![image](https://user-images.githubusercontent.com/71001536/165274928-6310ad6b-b65e-4303-a4cf-6bf307cd84db.png)
+
+![image](https://user-images.githubusercontent.com/71001536/165275052-d7695e1b-d0cc-4b92-942f-633a1c18658f.png)
+
