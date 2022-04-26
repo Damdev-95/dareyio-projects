@@ -133,7 +133,7 @@ sudo setsebool -P httpd_execmem 1
 
 ` sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf`
 
-`sudo systemctl restart mysqld`
+`sudo systemctl restart mysql`
 
 ![image](https://user-images.githubusercontent.com/71001536/165102307-56295862-05f1-4c01-b0d1-66e2f3876376.png)
 
