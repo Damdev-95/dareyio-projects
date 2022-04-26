@@ -93,6 +93,7 @@ sudo vi /etc/exports
 sudo yum install nfs-utils nfs4-acl-tools -y
 sudo mkdir -p /var/www
 sudo mount -t nfs -o rw,nosuid 172.31.19.201:/mnt/apps /var/www
+sudo chmod 766 /etc/fstab
 sudo echo "172.31.19.201:/mnt/apps /var/www     xfs defaults 0 0" >> /etc/fstab
 
 sudo yum install httpd -y
@@ -118,9 +119,6 @@ sudo setsebool -P httpd_execmem 1
 
 `sudo nano test.sh && sudo chmod +x test.sh`
 
-![image](https://user-images.githubusercontent.com/71001536/164731933-67b30843-ffaa-4392-a144-b693b93fa587.png)
-
-
 ![image](https://user-images.githubusercontent.com/71001536/164746016-045f32dd-8c35-48cb-95a6-fc4ed3605812.png)
 
 ![image](https://user-images.githubusercontent.com/71001536/164746168-453dd093-5db6-4d5e-9318-2a60a9cf4235.png)
@@ -139,14 +137,21 @@ sudo setsebool -P httpd_execmem 1
 
 ![image](https://user-images.githubusercontent.com/71001536/165102307-56295862-05f1-4c01-b0d1-66e2f3876376.png)
 
-* Install MySQL client on the database and connect to the MySQL server on the DB.
+* Install MySQL client on the WebServer and connect to the MySQL server(DB).
+* Ensure to run the connection config in the */var/www/html* directory
+
 ```
 sudo yum install mysql -y
-mysql -u webaccess -h 172.31.10.110 -p tooling
+mysql -u webaccess  -h  172.31.10.110  -pdamilare tooling < tooling-db.sql
+mysql -u webaccess  -h  172.31.10.110  -pdamilare tooling 
 ```
-![image](https://user-images.githubusercontent.com/71001536/165105518-cad13871-9852-4d0f-a83c-7b67b8b8fabe.png)
 
-* 
+
+![image](https://user-images.githubusercontent.com/71001536/165238671-97fc3414-a7ca-49a1-be02-d7c5fca907ea.png)
+
+![image](https://user-images.githubusercontent.com/71001536/165238867-27f87999-2759-4daf-b123-e896f9af811b.png)
+
+
 
 
 * Edit the *functions.php* file in the html directory on the web server
@@ -161,4 +166,16 @@ mysql -u webaccess -h 172.31.10.110 -p tooling
 * Edit the file `sudo vim /etc/etc/sysconfig/selinux` and  set SELINUX=disabled
 
 ![image](https://user-images.githubusercontent.com/71001536/165115008-0eb4f007-4e3e-4a93-b23b-8d1ff3ca2532.png)
+
+* Initial login with the following credentials
+```
+username: admin
+password: admin
+```
+
+![image](https://user-images.githubusercontent.com/71001536/165243356-06003f3c-7635-4313-805d-fdab5982f65e.png)
+
+![image](https://user-images.githubusercontent.com/71001536/165243732-6bb5f599-9029-47ea-aa50-9c9c9c4109d5.png)
+
+
 
