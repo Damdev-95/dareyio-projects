@@ -55,6 +55,10 @@ sudo apt-get install jenkins
 
 ![image](https://user-images.githubusercontent.com/71001536/165291500-5c475f39-af5f-4924-88f7-b423fa5a1ccc.png)
 
+* I had issues with this 
+
+![image](https://user-images.githubusercontent.com/71001536/165514236-24e3ad96-74fa-4283-8770-46cd7c49c86c.png)
+
 
 
 
