@@ -14,9 +14,7 @@ sudo apt install nginx
 ```
 * Open the default nginx configuration file
 
-* Create a load balancer configuration file 
-
-`sudo nano /etc/nginx/sites-available//load_balancer.conf`
+`sudo vi /etc/nginx/nginx.conf`
 
 ```
 #insert following configuration into http section
@@ -60,8 +58,32 @@ server {
 
 ![image](https://user-images.githubusercontent.com/71001536/165981343-d11cd415-c66c-4478-8320-c9adb181b6f5.png)
 
+* Install certbot and request for an SSL/TLS certificate, Make sure snapd service is active and running
+
+`sudo systemctl status snapd`
+
 ![image](https://user-images.githubusercontent.com/71001536/165981505-37b77401-68bf-46da-8f56-57612e380e52.png)
 
+* Install certbot
+
+`sudo snap install --classic certbot`
+* To activate the ssl certificate
+
+```
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+sudo certbot --nginx
+```
+![image](https://user-images.githubusercontent.com/71001536/166066051-9ec80a42-d534-412d-9392-7b060be11a27.png)
+
+![image](https://user-images.githubusercontent.com/71001536/166066173-81d8b863-ac7c-4a25-a28b-393e5036a683.png)
+
+![image](https://user-images.githubusercontent.com/71001536/166066765-a00f8056-3140-4c1b-80b3-7d143f157b12.png)
+
+* Set up periodical renewal of your SSL/TLS certificate
+* By default, LetsEncrypt certificate is valid for 90 days, so it is recommended to renew it at least every 60 days or more frequently.
+* You can test renewal command in dry-run mode
+
+`sudo certbot renew --dry-run`
 
 
 
