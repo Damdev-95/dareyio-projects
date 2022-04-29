@@ -85,6 +85,13 @@ sudo certbot --nginx
 
 `sudo certbot renew --dry-run`
 
+* To do so, lets edit the crontab file with the following command:
+
+`crontab -e`
+* Add following line:
+
+`* */12 * * *   root /usr/bin/certbot renew > /dev/null 2>&1`
+
 
 
 
