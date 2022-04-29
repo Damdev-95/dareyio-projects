@@ -59,6 +59,34 @@ sudo apt-get install jenkins
 
 ![image](https://user-images.githubusercontent.com/71001536/165514236-24e3ad96-74fa-4283-8770-46cd7c49c86c.png)
 
+* The issues was regarding the ssh-keys on the NFS server
+
+![image](https://user-images.githubusercontent.com/71001536/165910829-62b752ea-3925-4f7a-a8bd-b8285579da32.png)
+
+![image](https://user-images.githubusercontent.com/71001536/165911944-51e17a6b-7fb7-4e4f-b2a5-770fd1e0c885.png)
+
+* Having issues sending the files, there is permission issue on the /mnt/apps folder
+
+![image](https://user-images.githubusercontent.com/71001536/165916745-0c3f4446-1f41-4e16-89d3-7c6ec04dc096.png)
+
+* Change the permission  of the */mnt/apps* directory
+
+`sudo chmod 777 -R /mnt/apps`
+
+![image](https://user-images.githubusercontent.com/71001536/165917311-3fdfed28-73f2-4b08-83ad-ae362e3c6277.png)
+
+* This confirm the changes has been successfully tranfer to the NFS server
+
+![image](https://user-images.githubusercontent.com/71001536/165919992-1a3a7c5c-0a9c-481b-a722-4ed37f72edb5.png)
+
+![image](https://user-images.githubusercontent.com/71001536/165920238-b8668cbe-5482-4c25-8a75-fc895a72c5cc.png)
+
+
+
+
+
+
+
 
 
 
