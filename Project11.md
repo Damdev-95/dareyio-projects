@@ -25,3 +25,26 @@ sudo apt install ansible
 * Configure Webhook in GitHub and set webhook to trigger ansible build.
 * Configure a Post-build job to save all (**) files, like you did it in Project 9.
 * Test your setup by making some change in README.MD file in master branch and make sure that builds starts automatically and Jenkins saves the files (build artifacts) in following folder
+
+![image](https://user-images.githubusercontent.com/71001536/167273316-20a3ec40-42a6-48d8-811e-160c2d177026.png)
+
+
+```
+sudo apt update
+sudo apt install default-jdk-headless
+
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
+    /etc/apt/sources.list.d/jenkins.list'
+sudo apt update
+sudo apt-get install jenkins
+```
+
+* Copy the pem files for the web,db,nfs and lb servers to the jump server.
+* Assign necessary ownwership to the pem files
+```
+sudo chown nobody NFS.pem
+sudo chown nobody New.pem
+```
+
+
