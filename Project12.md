@@ -215,22 +215,24 @@ Make sure httpd service is started
   
 * Within the static-assignments folder, create a new assignment for uat-webservers uat-webservers.yml. This is where you will reference the role.
 
- ```
+```
 ---
 - hosts: uat-webservers
   roles:
      - webserver
 ```
+
 * There is need to refer the *uat-webservers.yml* role inside *site.yml*.
 
   
-  ```
+```
   ---
 - hosts: all
 - import_playbook: ../static-assignments/common.yml
 
 - hosts: uat-webservers
 - import_playbook: ../static-assignments/uat-webservers.yml
+
   ```
   
   # Step 5 – Commit & Test
@@ -239,4 +241,4 @@ Make sure httpd service is started
 
 Now run the playbook against your uat inventory :
 
-`sudo ansible-playbook -i /home/ubuntu/ansible-config-mgt/inventory/uat.yml /home/ubuntu/ansible-config-mgt/playbooks/site.yaml`
+`sudo ansible-playbook -i /home/ubuntu/ansible-config-mgt/inventory/uat.yaml /home/ubuntu/ansible-config-mgt/playbooks/site.yaml`
