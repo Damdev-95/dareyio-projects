@@ -37,3 +37,131 @@ sudo chmod -R 0777 /home/ubuntu/ansible-config-artifact
 
 `sudo chmod 0755 /home/ubuntu`
 
+![image](https://user-images.githubusercontent.com/71001536/167605736-1a5f9e1a-07a5-476e-b8c3-a475db159c09.png)
+
+![image](https://user-images.githubusercontent.com/71001536/167605954-e25f0f15-c8ae-4cf5-baf8-aa6416339ccd.png)
+
+# Step 2 – Refactor Ansible code by importing other playbooks into site.yaml
+
+Before starting to refactor the codes, ensure that you have pulled down the latest code from master (main) branch, and created a new branch, name it refactor.
+Let see code re-use in action by importing other playbooks
+
+* Within playbooks folder, create a new file and name it site.yaml – This file will now be considered as an entry point into the entire infrastructure configuration. Other playbooks will be included here as a reference. In other words, site.yml will become a parent to all other playbooks that will be developed. Including common.yml that you created previously. 
+
+* Create a new folder in root of the repository and name it static-assignments. The static-assignments folder is where all other children playbooks will be stored. This is merely for easy organization of your work. It is not an Ansible specific concept, therefore you can choose how you want to organize your work. You will see why the folder name has a prefix of static very soon. For now, just follow along.
+
+* Move common.yaml file into the newly created static-assignments folder.
+
+![image](https://user-images.githubusercontent.com/71001536/167611202-015a2c94-e886-48b3-ac24-5e3fa8e554e5.png)
+
+
+* Inside site.yaml file, import common.yml playbook.
+
+```
+---
+- hosts: all
+- import_playbook: ../static-assignments/common.yaml
+```
+* Run ansible-playbook command against the dev environment
+
+`ansible-playbook -i inventory/dev.yaml playbooks/site.yaml`
+
+## Had issue trying to use the site.yaml file 
+
+![image](https://user-images.githubusercontent.com/71001536/167614229-8c4d4183-509e-4c82-b48b-8905c508eb9d.png)
+
+## Solve renaming the yml with yaml , with necessary chmod permission
+
+
+* Since you need to apply some tasks to your dev servers and wireshark is already installed – you can go ahead and create another playbook under static-assignments and name it common-del.yaml. In this playbook, configure deletion of wireshark utility.
+
+```
+---
+- name: update web, nfs and db servers
+  hosts: webservers, nfs, db
+  remote_user: ec2-user
+  become: yes
+  become_user: root
+  tasks:
+  - name: delete wireshark
+    yum:
+      name: wireshark
+      state: removed
+
+- name: update LB server
+  hosts: lb
+  remote_user: ubuntu
+  become: yes
+  become_user: root
+  tasks:
+  - name: delete wireshark
+    apt:
+      name: wireshark-qt
+      state: absent
+      autoremove: yes
+      purge: yes
+      autoclean: yes
+```
+
+![image](https://user-images.githubusercontent.com/71001536/167617214-f58eb0bb-a7e1-48e9-a5fb-ae6bc93a9b0b.png)
+
+* Update site.yaml with - import_playbook: ../static-assignments/common-del.yaml instead of common.yaml and run it against dev servers:
+
+![image](https://user-images.githubusercontent.com/71001536/167617682-44c7ef42-9353-4dab-a70e-2e1690ab7fee.png)
+
+![image](https://user-images.githubusercontent.com/71001536/167617964-c3c7f0a4-58ee-4ff8-ba30-85b8207c8c54.png)
+
+* To validate the removal of wiresharks from the target hosts
+
+![image](https://user-images.githubusercontent.com/71001536/167618481-f06f6fa9-7f37-4607-bca4-bc9b22343b0a.png)
+
+![image](https://user-images.githubusercontent.com/71001536/167618560-6e05cd2a-a4c3-4049-87a7-841125b29731.png)
+
+# Step 3 – Configure UAT Webservers with a role ‘Webserver’
+
+* Launch 2 fresh EC2 instances using RHEL 8 image, we will use them as our uat servers, so give them names accordingly – Web1-UAT and Web2-UAT.
+
+* To create a role, you must create a directory called roles/, relative to the playbook file or in /etc/ansible/ directory.
+
+```
+sudo mkdir roles
+cd roles
+sudo ansible-galaxy init webserver
+```
+![image](https://user-images.githubusercontent.com/71001536/167620984-8101df76-01ba-4c6b-86fa-43eac1524cb9.png)
+
+* Update your inventory ansible-config-mgt/inventory/uat.yml file with IP addresses of your 2 UAT Web servers
+```
+[uat-webservers]
+<Web1-UAT-Server-Private-IP-Address> ansible_ssh_user='ec2-user' 
+
+<Web2-UAT-Server-Private-IP-Address> ansible_ssh_user='ec2-user' 
+```
+![image](https://user-images.githubusercontent.com/71001536/167621993-28a28114-0094-47fd-b682-2e391442e309.png)
+
+* In /etc/ansible/ansible.cfg file uncomment roles_path string and provide a full path to your roles directory roles_path    = /home/ubuntu/ansible-config-mgt/roles, so Ansible could know where to find configured roles
+## ERROR, I did not find the /etc/ansible folder 
+
+![image](https://user-images.githubusercontent.com/71001536/167633444-b1f6b148-c42b-477c-a6b3-41726283dcd2.png)
+
+* I have to uninstall the current ansible, then install latest
+
+```
+sudo apt remove ansible
+sudo apt --purge autoremove
+sudo apt update
+sudo apt upgrade
+sudo apt install software-properties-common
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt update
+sudo apt install ansible
+ansible --version
+sudo apt install python3-argcomplete
+sudo activate-global-python-argcomplete3
+```
+
+![image](https://user-images.githubusercontent.com/71001536/167633222-18e91773-c29d-4181-b50c-deb5b8255bfa.png)
+
+
+
+
