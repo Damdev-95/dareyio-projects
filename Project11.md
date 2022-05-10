@@ -112,6 +112,9 @@ ansible-playbook -i inventory/dev.yaml playbooks/common.yaml
 
 ![image](https://user-images.githubusercontent.com/71001536/167275127-c019eea7-8bce-472d-94cb-2dd0d1c59fe4.png)
 
+![image](https://user-images.githubusercontent.com/71001536/167585714-9ef9080a-6de9-480b-af54-2fa755b46dec.png)
+
+
 
 
 
