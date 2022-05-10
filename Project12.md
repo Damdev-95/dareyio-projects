@@ -142,8 +142,6 @@ sudo ansible-galaxy init webserver
 * In /etc/ansible/ansible.cfg file uncomment roles_path string and provide a full path to your roles directory roles_path    = /home/ubuntu/ansible-config-mgt/roles, so Ansible could know where to find configured roles
 ## ERROR, I did not find the /etc/ansible folder 
 
-![image](https://user-images.githubusercontent.com/71001536/167633444-b1f6b148-c42b-477c-a6b3-41726283dcd2.png)
-
 * I have to uninstall the current ansible, then install latest
 
 ```
