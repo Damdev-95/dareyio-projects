@@ -25,6 +25,13 @@ MERN Web stack consists of following components:
 
 ## Step 2 – Frontend creation
 
+* Update the node version 
+ ```
+ npm cache clean -f
+ sudo npm install -g n
+ sudo n stable
+```
+
 * Running a React App
 ![image](https://user-images.githubusercontent.com/71001536/162401598-ae19a495-0d79-4029-be28-14dfbc19e5fa.png)
 
