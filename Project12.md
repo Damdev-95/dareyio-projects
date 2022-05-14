@@ -133,7 +133,7 @@ sudo ansible-galaxy init webserver
 ![image](https://user-images.githubusercontent.com/71001536/168417315-11b5315f-1721-44a2-8814-9bdf3969250d.png)
 
 
-* Update your inventory ansible-config-mgt/inventory/uat.yml file with IP addresses of your 2 UAT Web servers
+* Update your inventory ansible-config-mgt/inventory/uat.yaml file with IP addresses of your 2 UAT Web servers
 ```
 [uat-webservers]
 <Web1-UAT-Server-Private-IP-Address> ansible_ssh_user='ec2-user' 
@@ -194,7 +194,7 @@ Make sure httpd service is started
 - name: clone a repo
   become: true
   ansible.builtin.git:
-    repo: https://github.com/<your-name>/tooling.git
+    repo: https://github.com/damdev-95/tooling.git
     dest: /var/www/html
     force: yes
 
@@ -225,7 +225,7 @@ Make sure httpd service is started
      - webserver
 ```
 
-* There is need to refer the *uat-webservers.yml* role inside *site.yml*.
+* There is need to refer the *uat-webservers.yaml* role inside *site.yaml*.
 
   
 ```
@@ -234,7 +234,7 @@ Make sure httpd service is started
 - import_playbook: ../static-assignments/common.yml
 
 - hosts: uat-webservers
-- import_playbook: ../static-assignments/uat-webservers.yml
+- import_playbook: ../static-assignments/uat-webservers.yaml
 
   ```
   
@@ -244,4 +244,16 @@ Make sure httpd service is started
 
 Now run the playbook against your uat inventory :
 
-`sudo ansible-playbook -i /home/ubuntu/ansible-config-mgt/inventory/uat.yaml /home/ubuntu/ansible-config-mgt/playbooks/site.yaml`
+`ansible-playbook -i /home/ubuntu/ansible-config-mgt/inventory/uat.yaml /home/ubuntu/ansible-config-mgt/playbooks/site.yaml`
+ 
+![image](https://user-images.githubusercontent.com/71001536/168425301-20a35738-a543-46cc-98d9-77b0714b10bf.png)
+
+# UAT WEBSERVER 1
+![image](https://user-images.githubusercontent.com/71001536/168425468-1d2a96fc-5e19-4a6a-a5be-119f88a92151.png)
+
+
+ # UAT WEBSERVER 2
+
+![image](https://user-images.githubusercontent.com/71001536/168425525-3f40962c-7279-4b70-8170-745212bdb93a.png)
+
+
