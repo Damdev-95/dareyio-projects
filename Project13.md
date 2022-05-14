@@ -64,3 +64,36 @@ import_tasks
 
 * We are including the variables using a loop. with_first_found implies that, looping through the list of files, the first one found is used. This is good so that we can always set default values in case an environment specific env file does not exist.
 
+```
+---
+- hosts: all
+- name: Include dynamic variables 
+  tasks:
+  import_playbook: ../static-assignments/common.yml 
+  include: ../dynamic-assignments/env-vars.yml
+  tags:
+    - always
+
+-  hosts: webservers
+- name: Webserver assignment
+  import_playbook: ../static-assignments/webservers.yml
+  
+  ```
+  * Inside roles directory create your new MySQL role with ansible-galaxy install geerlingguy.mysql and rename the folder to mysql
+ 
+ ```
+ cd /home/ubuntu/ansible-config-mgt/roles
+ sudo ansible-galaxy install geerlingguy.mysql
+ sudo mv geerlingguy.mysql/ mysql
+ ```
+
+* Upload the changes into my GitHub
+
+```
+git add .
+git commit -m "Commit new role files into GitHub"
+# git push --set-upstream origin roles-feature  (old features to push)
+git push https://<github-token>/Damdev-95/ansible-config-mgt.git
+
+
+```
