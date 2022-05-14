@@ -94,6 +94,15 @@ git add .
 git commit -m "Commit new role files into GitHub"
 # git push --set-upstream origin roles-feature  (old features to push)
 git push https://<github-token>/Damdev-95/ansible-config-mgt.git
+```
+* Install the apache and nginx role from the ansible galaxy 
 
-
+```
+cd /home/ubuntu/ansible-config-mgt/roles
+sudo ansible-galaxy install geerlingguy.nginx
+sudo mv geerlingguy.nginx/ nginx
+sudo ansible-galaxy install geerlingguy.apache
+sudo mv geerlingguy.apache/ apache
+sudo chown ubuntu apache nginx
+sudo chmod 775 apache nginx
 ```
