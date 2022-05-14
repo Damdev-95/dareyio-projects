@@ -130,6 +130,9 @@ sudo ansible-galaxy init webserver
 ```
 ![image](https://user-images.githubusercontent.com/71001536/167620984-8101df76-01ba-4c6b-86fa-43eac1524cb9.png)
 
+![image](https://user-images.githubusercontent.com/71001536/168417225-71739fe6-d434-4d98-8a68-f3a72283fc7f.png)
+
+
 * Update your inventory ansible-config-mgt/inventory/uat.yml file with IP addresses of your 2 UAT Web servers
 ```
 [uat-webservers]
