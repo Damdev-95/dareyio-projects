@@ -106,3 +106,21 @@ sudo mv geerlingguy.apache/ apache
 sudo chown ubuntu apache nginx
 sudo chmod 775 apache nginx
 ```
+
+# Important Hints:
+
+Since you cannot use both Nginx and Apache load balancer, you need to add a condition to enable either one – this is where you can make use of variables.
+
+Declare a variable in defaults/main.yml file inside the Nginx and Apache roles. Name each variables enable_nginx_lb and enable_apache_lb respectively.
+
+Set both values to false like this enable_nginx_lb: false and enable_apache_lb: false.
+
+Declare another variable in both roles load_balancer_is_required and set its value to false as well
+
+Update both assignment and site.yml files respectively
+
+
+![image](https://user-images.githubusercontent.com/71001536/168632740-b14aa1f4-cdb2-416c-8353-0305e908c011.png)
+
+![image](https://user-images.githubusercontent.com/71001536/168632902-469445ed-5b89-44de-b6bb-caf27ed0bb35.png)
+
