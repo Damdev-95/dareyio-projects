@@ -82,4 +82,43 @@ pipeline {
 
 ![image](https://user-images.githubusercontent.com/71001536/169808776-07c79b14-b794-42c5-9644-705e463fbef9.png)
 
+![image](https://user-images.githubusercontent.com/71001536/169813175-94fbcc70-c03b-4d96-a4d8-a419de28760d.png)
+
+
+* Create a new git branch and name it *feature/jenkinspipeline-stages*
+
+* Currently we only have the Build stage. Let us add another stage called *Test*. Paste the code snippet below and push the new changes to GitHub.
+
+```
+pipeline {
+    agent any
+
+  stages {
+    stage('Build') {
+      steps {
+        script {
+          sh 'echo "Building Stage"'
+        }
+      }
+    }
+
+    stage('Test') {
+      steps {
+        script {
+          sh 'echo "Testing Stage"'
+        }
+      }
+    }
+    }
+}
+```
+* To make your new branch show up in Jenkins, we need to tell Jenkins to scan the repository.
+
+* Click on the "Administration" button
+
+* Navigate to the Ansible project and click on "Scan repository now"
+
+![image](https://user-images.githubusercontent.com/71001536/169817817-0b65ebd4-8bcf-4163-a643-f9fe567e78e1.png)
+
+
 
