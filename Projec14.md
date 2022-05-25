@@ -346,6 +346,33 @@ Our goal here is to deploy the application onto servers directly from Artifactor
 ![image](https://user-images.githubusercontent.com/71001536/170299391-6445cbcd-b1b5-4476-9688-09f557af6d6c.png)
 ![image](https://user-images.githubusercontent.com/71001536/170312391-3f6d9dd1-5a35-40f3-ad71-977e1c29f622.png)
 
+![image](https://user-images.githubusercontent.com/71001536/170313258-96dee1da-4d64-4b77-a76e-59ebccf893df.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170316569-61043f74-0d7a-43a1-adeb-9f90df9d8096.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170317063-446fdd8d-02be-4524-8b77-05f1459ad7a5.png)
+
+
+## SONARQUBE INSTALLATION
+
+* Using the sonarqube role for the ansible installation
+![image](https://user-images.githubusercontent.com/71001536/170323219-ef735159-7bae-4bd7-a7bc-0e3e128a4c69.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170323722-976eee7d-b117-4519-be76-32fb3e87da61.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170323977-17ba1de4-1071-4c8f-a730-4042481bbc79.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170326679-184442d6-77f8-4aba-b525-9c47d8ad13e8.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170328867-3390f2ed-86c3-4450-93de-88de5ac5a2e2.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170329903-208a9956-591f-4358-81cc-36dabd1955d9.png)
+
+
+
+![image](https://user-images.githubusercontent.com/71001536/170330038-2ad4a71d-3f75-43f4-afe6-bebb97bdbda7.png)
+
+
 
 
 
