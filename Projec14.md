@@ -376,7 +376,7 @@ Our goal here is to deploy the application onto servers directly from Artifactor
 
 ![image](https://user-images.githubusercontent.com/71001536/170340195-11b04c21-6525-4549-9737-107ef7cba250.png)
 
-![image](https://user-images.githubusercontent.com/71001536/170341011-88bee86e-318b-4bcd-af05-51bfad65b604.png)
+![image](https://user-images.githubusercontent.com/71001536/170346015-cc4e2b27-3059-45da-9b5e-aa049debc59e.png)
 
 
 
