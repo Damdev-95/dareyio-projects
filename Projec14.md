@@ -53,6 +53,33 @@ The problem with that approach is, it would be difficult to package and version 
 
 ![image](https://user-images.githubusercontent.com/71001536/169796345-324c336f-ccee-4ff0-8674-4c4f62efa20e.png)
 
+# Installing Ansible and dependencies for RedHat 
+```
+sudo wget -O /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+sudo yum upgrade
+yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+yum install -y dnf-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm
+sudo yum install java-11-openjdk-devel -y
+sudo yum install jenkins
+sudo systemctl daemon-reload
+```
+# Updating the bash profile on the RedHat Server
+
+*  open the bash profile 
+`vi .bash_profile `
+
+* paste the below in the bash profile
+```
+export JAVA_HOME=$(dirname $(dirname $(readlink $(readlink $(which javac)))))
+export PATH=$PATH:$JAVA_HOME/bin
+export CLASSPATH=.:$JAVA_HOME/jre/lib:$JAVA_HOME/lib:$JAVA_HOME/lib/tools.jar
+```
+
+* Reload the bash profile
+`source ~/.bash_profile`
+
 ![image](https://user-images.githubusercontent.com/71001536/169805436-b85a87eb-ebaf-45f1-b99b-5d9a0ab98ac2.png)
 
 ![image](https://user-images.githubusercontent.com/71001536/169805632-16d5ca4e-e4d1-4c91-b949-064c2d72d34a.png)
@@ -94,6 +121,15 @@ pipeline {
     agent any
 
   stages {
+
+    stage("Initial cleanup") {
+      steps {
+        dir("${WORKSPACE}") {
+          deleteDir()
+        }
+      }
+    }
+
     stage('Build') {
       steps {
         script {
@@ -109,8 +145,31 @@ pipeline {
         }
       }
     }
+
+    stage('Package') {
+      steps {
+        script {
+          sh 'echo "Packaging Stage"'
+        }
+      }
     }
+
+    stage('Deploy') {
+      steps {
+        script {
+          sh 'echo "Deploying Stage"'
+        }
+      }
+    }
+
+    stage('Clean up') {
+      steps {
+        cleanWs()
+      }
+    }
+  }
 }
+
 ```
 * To make your new branch show up in Jenkins, we need to tell Jenkins to scan the repository.
 
@@ -118,7 +177,177 @@ pipeline {
 
 * Navigate to the Ansible project and click on "Scan repository now"
 
-![image](https://user-images.githubusercontent.com/71001536/169817817-0b65ebd4-8bcf-4163-a643-f9fe567e78e1.png)
+![image](https://user-images.githubusercontent.com/71001536/170229285-0baf6a07-6dab-4fd0-89ff-4b9717db5d56.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170229809-b99bdf3c-a166-46e4-95ae-d54a50cdfab4.png)
+
+# Both the branch and main have build and done corrrectly
+![image](https://user-images.githubusercontent.com/71001536/170230275-4a637a38-ffc5-49b1-99ed-7509444b336c.png)
+
+# Installing Ansible and dependices
+```
+sudo yu install ansible -y
+python3 -m pip install --upgrade setuptools
+python3 -m pip install --upgrade pip
+python3 -m pip install PyMySQL
+python3 -m pip install mysql-connector-python
+python3 -m pip install psycopg2==2.7.5 --ignore-installed
+```
+
+# Ansible dependencies
+
+* For Mysql Database
+`ansible-galaxy collection install community.mysql`
+* For Postgresql Database
+`ansible-galaxy collection install community.postgresql`
+
+* Install ANSIBLE plugin on Jenkins
+* There is need to export some variable
+* create *ansible.cfg* in the deploy directory
+```
+[defaults]
+timeout = 160
+callback_whitelist = profile_tasks
+log_path=~/ansible.log
+host_key_checking = False
+gathering = smart
+ansible_python_interpreter=/usr/bin/python3
+allow_world_readable_tmpfiles=true
+
+
+[ssh_connection]
+ssh_args = -o ControlMaster=auto -o ControlPersist=30m -o ControlPath=/tmp/ansible-ssh-%h-%p-%r -o ServerAliveInterval=60 -o ServerAliveCountMax=60 -o ForwardAgent=yes
+```
+* Create a new jenkins file for executing ansible
+
+```
+pipeline {
+  agent any
+
+  environment {
+      ANSIBLE_CONFIG="${WORKSPACE}/deploy/ansible.cfg"
+    }
+
+  parameters {
+      string(name: 'inventory', defaultValue: 'dev',  description: 'This is the inventory file for the environment to deploy configuration')
+    }
+
+  stages{
+      stage("Initial cleanup") {
+          steps {
+            dir("${WORKSPACE}") {
+              deleteDir()
+            }
+          }
+        }
+
+      stage('Checkout SCM') {
+         steps{
+            git branch: 'feature/jenkinspipeline-stages', url: 'https://github.com/Damdev-95/ansible-config-mgt.git'
+         }
+       }
+
+      stage('Prepare Ansible For Execution') {
+        steps {
+          sh 'echo ${WORKSPACE}' 
+          sh 'sed -i "3 a roles_path=${WORKSPACE}/roles" ${WORKSPACE}/deploy/ansible.cfg'  
+        }
+     }
+
+      stage('Run Ansible playbook') {
+        steps {
+           ansiblePlaybook become: true, colorized: true, credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory/${inventory}', playbook: 'playbooks/site.yaml'
+         }
+      }
+
+      stage('Clean Workspace after build'){
+        steps{
+          cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true, cleanWhenUnstable: true, deleteDirs: true)
+        }
+      }
+   }
+
+}
+```
+* Create credentials for the ansible 
+![image](https://user-images.githubusercontent.com/71001536/170238305-18f5e8d7-579d-4fb2-8eca-7b8083867db5.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170241486-57357faa-f537-4ffd-a982-07ca2122774b.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170241756-242a521f-00f1-4fe7-8bb1-ef57989a2cb9.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170241922-26bd47b8-c2c2-4237-b873-e62a8f25c6b1.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170244084-e86a22e9-3ed4-4aed-bd02-98ebbc0c1306.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170250268-642db162-232b-4422-88da-dd5814e30fb6.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170250393-ce7cbd85-4e8a-4e51-8005-e6cd12d39f8c.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170253389-5eb650a3-6386-4d87-b1c5-5366f6ddbc9a.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170250661-ce84851d-b984-4719-9494-8c5481430933.png)
+
+# CI/CD PIPELINE FOR TODO APPLICATION
+
+We already have tooling website as a part of deployment through Ansible. Here we will introduce another PHP application to add to the list of software products we are managing in our infrastructure. The good thing with this particular application is that it has unit tests, and it is an ideal application to show an end-to-end CI/CD pipeline for a particular application.
+
+Our goal here is to deploy the application onto servers directly from Artifactory rather than from git. If you have not updated Ansible with an Artifactory role, simply use this guide to create an Ansible role for Artifactory (ignore the Nginx part). Configure Artifactory on Ubuntu 20.04
+
+# Phase 1 – Prepare Jenkins
+
+* Fork the repository below into your GitHub account
+
+`https://github.com/darey-devops/php-todo.git`
+
+* On you Jenkins server, install PHP, its dependencies and Composer tool (Feel free to do this manually at first, then update your Ansible accordingly later)
+`sudo apt install -y zip libapache2-mod-php phploc php-{xml,bcmath,bz2,intl,gd,mbstring,mysql,zip}`
+
+* Install Jenkins plugins
+* Plot plugin
+* Artifactory plugin
+
+![image](https://user-images.githubusercontent.com/71001536/170276625-ec121853-3e26-4ab2-a5b4-7edaf194d1ce.png)
+
+## open port 8082 on the artifactory server
+
+![image](https://user-images.githubusercontent.com/71001536/170277919-1b78cfe7-4c23-41f8-a7cc-370d61cc864a.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170278543-c4ea5ed1-3b54-4549-a39a-30ec5da99717.png)
+
+* Create local repository
+![image](https://user-images.githubusercontent.com/71001536/170278834-d90573c1-2567-4d18-942b-6374e8a2752f.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170280426-ecd2af7a-71a9-4ec6-9d15-40ecef3ec10a.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170280641-cfc58754-0971-40f2-b349-e1ba4e9432b8.png)
+
+## ip address of the jenkins server in the homestead database
+
+![image](https://user-images.githubusercontent.com/71001536/170281713-be871fa1-41e7-4f9e-9361-e827c8c8ea9d.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170283253-d3923359-4434-4acd-8538-e1939acf2e6b.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170283901-710386f4-ec14-437a-a3c3-cf660cceb054.png)
+
+# Edit bind address on the db server 
+` sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf `
+
+# Edit the env.sample file in the php-todo
+
+![image](https://user-images.githubusercontent.com/71001536/170291044-d864d5e1-72be-4486-b5a6-ff309fb36178.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170291770-1566c7fe-a7e8-47a2-8595-6ab210d4af7c.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170295948-e98f0709-4ae2-413b-831d-3e560d9b9ee6.png)
+
+## Phase 3 – Code Quality Analysis
+
+![image](https://user-images.githubusercontent.com/71001536/170299391-6445cbcd-b1b5-4476-9688-09f557af6d6c.png)
+![image](https://user-images.githubusercontent.com/71001536/170312391-3f6d9dd1-5a35-40f3-ad71-977e1c29f622.png)
+
+
+
 
 
 
