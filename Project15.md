@@ -120,3 +120,6 @@ systemctl restart httpd
 
 ![image](https://user-images.githubusercontent.com/71001536/170588095-40c912be-79f0-4f0a-a9f6-10720ccd1c29.png)
 
+* ROUTES TO EACH DOMAIN
+
+![image](https://user-images.githubusercontent.com/71001536/170589053-91bb87ed-7092-464e-b8ca-aeb558506f1a.png)
