@@ -15,7 +15,7 @@ Create a free domain name for your fictitious company at Freenom domain registra
 
 Create a hosted zone in AWS, and map it to your free domain from Freenom
 
-# I createD a stepguide to implement [AWS ORGANIZATION](https://github.com/Damdev-95/aws_projects/blob/main/aws-organization.md)
+# I created a stepguide to implement [AWS ORGANIZATION](https://github.com/Damdev-95/aws_projects/blob/main/aws-organization.md)
 
 ## VPC CREATION
 
@@ -23,9 +23,34 @@ Create a hosted zone in AWS, and map it to your free domain from Freenom
 
 ![image](https://user-images.githubusercontent.com/71001536/170463308-6f6efb20-2b7a-4b10-90e5-af42a0a64345.png)
 
-# AMI CREATION
+# AMI CREATION fOR BASTION, NGINX, WEBSERVER
+
+* Spin an EC2 INSTANCE for each of them 
+
+* Install the necessary configurations specifed below;
+
+![image](https://user-images.githubusercontent.com/71001536/170511645-6772de1b-6335-4a09-a535-24a2fb2562d5.png)
 
 ![image](https://user-images.githubusercontent.com/71001536/170510118-89101bca-541c-4853-b9c6-8ec04d10deba.png)
+
+* Create the image 
+
+![image](https://user-images.githubusercontent.com/71001536/170514780-6ea385f0-26aa-4311-8ca5-0c53c1309c1d.png)
+
+
+* Create Target Group
+
+![image](https://user-images.githubusercontent.com/71001536/170514345-c072b5df-f6f7-421b-ba37-5ed6f2b1ec65.png)
+
+
+* Create Load Balancer
+
+![image](https://user-images.githubusercontent.com/71001536/170515893-c2dea4df-9ab2-4305-a752-61f94c791660.png)
+
+
+* Create Launch Template
+
+* Create Autoscaling Group
 
 
 
