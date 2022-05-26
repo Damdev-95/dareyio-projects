@@ -47,6 +47,18 @@ Create a hosted zone in AWS, and map it to your free domain from Freenom
 
 ![image](https://user-images.githubusercontent.com/71001536/170515893-c2dea4df-9ab2-4305-a752-61f94c791660.png)
 
+![image](https://user-images.githubusercontent.com/71001536/170517184-6440b1c3-523f-47f6-ac31-6a776fe681f5.png)
+
+* Add rule to forward to the tooling webserver from INTERNAL-LB
+
+![image](https://user-images.githubusercontent.com/71001536/170517662-a2053879-3ed4-4f9c-b715-6b8cd43b012d.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170517931-735f484a-1f46-4445-900f-6c4e5bd612ad.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170518234-b4a82ddf-5a79-4531-a546-28bfba724ef5.png)
+
+
+
 
 * Create Launch Template
 
