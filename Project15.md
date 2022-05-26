@@ -23,6 +23,9 @@ Create a hosted zone in AWS, and map it to your free domain from Freenom
 
 ![image](https://user-images.githubusercontent.com/71001536/170463308-6f6efb20-2b7a-4b10-90e5-af42a0a64345.png)
 
+# AMI CREATION
+
+![image](https://user-images.githubusercontent.com/71001536/170510118-89101bca-541c-4853-b9c6-8ec04d10deba.png)
 
 
 
