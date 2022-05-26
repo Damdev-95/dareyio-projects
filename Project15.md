@@ -15,6 +15,14 @@ Create a free domain name for your fictitious company at Freenom domain registra
 
 Create a hosted zone in AWS, and map it to your free domain from Freenom
 
-# I create a stepguide to implement [AWS ORGANIZATION](https://github.com/Damdev-95/aws_projects/blob/main/aws-organization.md)
+# I createD a stepguide to implement [AWS ORGANIZATION](https://github.com/Damdev-95/aws_projects/blob/main/aws-organization.md)
+
+## VPC CREATION
+
+![image](https://user-images.githubusercontent.com/71001536/170456599-0a515010-92e3-4317-ae0c-023cf3885f10.png)
+
+![image](https://user-images.githubusercontent.com/71001536/170463308-6f6efb20-2b7a-4b10-90e5-af42a0a64345.png)
+
+
 
 
