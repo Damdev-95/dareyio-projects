@@ -38,7 +38,7 @@ Create a hosted zone in AWS, and map it to your free domain from Freenom
 ![image](https://user-images.githubusercontent.com/71001536/170514780-6ea385f0-26aa-4311-8ca5-0c53c1309c1d.png)
 
 
-* Create Target Group
+* Create Target Group FOR NGINX AND TOOLING
 
 ![image](https://user-images.githubusercontent.com/71001536/170514345-c072b5df-f6f7-421b-ba37-5ed6f2b1ec65.png)
 
@@ -57,10 +57,9 @@ Create a hosted zone in AWS, and map it to your free domain from Freenom
 
 ![image](https://user-images.githubusercontent.com/71001536/170518234-b4a82ddf-5a79-4531-a546-28bfba724ef5.png)
 
-
-
-
 * Create Launch Template
+
+
 
 * Create Autoscaling Group
 
