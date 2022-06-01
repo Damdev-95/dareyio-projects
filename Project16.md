@@ -360,7 +360,16 @@ resource "aws_subnet" "project_16_public_subnet" {
 
   }
 }
-
-
-
 ```
+![image](https://user-images.githubusercontent.com/71001536/171392911-70634f93-0be4-4c63-b7bc-95ba288be371.png)
+
+![image](https://user-images.githubusercontent.com/71001536/171393050-96729eb6-5d64-4341-bd64-6abb72d9b2a6.png)
+
+![image](https://user-images.githubusercontent.com/71001536/171393306-c6770b78-be23-4bd5-97b3-a7cf85d43678.png)
+
+![image](https://user-images.githubusercontent.com/71001536/171393413-7a4f9812-d998-4669-8af1-c01dcd829371.png)
+
+![image](https://user-images.githubusercontent.com/71001536/171393523-f43181df-fbb4-441a-aea2-b4dfee38142d.png)
+
+
+
