@@ -196,7 +196,62 @@ resource "aws_subnet" "public" {
 ```
 
 
+A closer look at cidrsubnet – this function works like an algorithm to dynamically create a subnet CIDR per AZ. Regardless of the number of subnets created, it takes care of the cidr value per subnet.
 
+# Its parameters are cidrsubnet(prefix, newbits, netnum)
 
+* The *prefix* parameter must be given in CIDR notation, same as for VPC.
+* The *newbits* parameter is the number of additional bits with which to extend the prefix. For example, if given a prefix ending with /16 and a newbits value of 4, the resulting subnet address will have length /20
+* The *netnum* parameter is a whole number that can be represented as a binary integer with no more than newbits binary digits, which will be used to populate the additional bits added to the prefix
 
+![image](https://user-images.githubusercontent.com/71001536/171381974-70482c42-13c2-4708-8c26-2c360cc50770.png)
 
+# The final problem to solve is removing hard coded count value.
+If we cannot hard code a value we want, then we will need a way to dynamically provide the value based on some input. Since the data resource returns all the AZs within a region, it makes sense to count the number of AZs returned and pass that number to the count argument.
+
+To do this, we can introuduce length() function, which basically determines the length of a given list, map, or string.
+
+Since *data.aws_availability_zones.available.names* returns a list like ["eu-central-1a", "eu-central-1b", "eu-central-1c"] we can pass it into a lenght function and get number of the AZs.
+length(["eu-central-1a", "eu-central-1b", "eu-central-1c"])
+
+```
+ resource "aws_subnet" "public" { 
+        count                   = length(data.aws_availability_zones.available.names)
+        vpc_id                  = aws_vpc.main.id
+        cidr_block              = cidrsubnet(var.vpc_cidr, 4 , count.index)
+        map_public_ip_on_launch = true
+        availability_zone       = data.aws_availability_zones.available.names[count.index]
+
+    }
+    
+ ```
+ # Observations:
+
+What we have now, is sufficient to create the subnet resource required. But if you observe, it is not satisfying our business requirement of just 2 subnets. The length function will return number 3 to the count argument, but what we actually need is 2.
+* Declare a variable to store the desired number of public subnets, and set the default value
+
+```variable "preferred_number_of_public_subnets" {
+  default = 2
+}
+```
+* Next, update the count argument with a condition. Terraform needs to check first if there is a desired number of subnets. Otherwise, use the data returned by the lenght function.
+
+# Create public subnets
+
+```
+resource "aws_subnet" "public" {
+  count  = var.preferred_number_of_public_subnets == null ? length(data.aws_availability_zones.available.names) : var.preferred_number_of_public_subnets   
+  vpc_id = aws_vpc.main.id
+  cidr_block              = cidrsubnet(var.vpc_cidr, 4 , count.index)
+  map_public_ip_on_launch = true
+  availability_zone       = data.aws_availability_zones.available.names[count.index]
+
+}
+```
+Now lets break it down:
+
+* The first part *var.preferred_number_of_public_subnets == null* checks if the value of the variable is set to null or has some value defined.
+* The second part *? and length(data.aws_availability_zones.available.names)* means, if the first part is true, then use this. In other words, if preferred number of public subnets is null (Or not known) then set the value to the data returned by lenght function.
+* The third part *: and var.preferred_number_of_public_subnets* means, if the first condition is false, i.e preferred number of public subnets is not null then set the value to whatever is definied in var.preferred_number_of_public_subnets
+
+# Introducing variables.tf & terraform.tfvars
