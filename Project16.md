@@ -55,11 +55,13 @@ sudo apt-get update && sudo apt-get install terraform
 
 # Starting Terraform environment 
 * First confirm the installed version of terraform 
+
 `terraform --version` 
 
 ![image](https://user-images.githubusercontent.com/71001536/171362653-0d3b1532-88f7-45ca-99b8-137074912a03.png)
 
 * Create the provider file  *provider.tf*, *main.tf*, *variabale.tf* in the PBL directory
+
 ![image](https://user-images.githubusercontent.com/71001536/171363273-27eb438c-653d-4b0f-a525-bee82c23645a.png)
 
 # provider.tf
@@ -126,6 +128,26 @@ cd PBL
 terraform init 
 ```
 ![image](https://user-images.githubusercontent.com/71001536/171362515-18ee84f9-c133-4515-847c-4840b9a38cf1.png)
+
+* Apply `terraform plan` on the command line
+
+![image](https://user-images.githubusercontent.com/71001536/171371231-698fdd54-9cc6-446e-8edf-ba9c8d74e625.png)
+
+* Use `terraform apply ` to deploy the resources in the *main.tf* file
+
+![image](https://user-images.githubusercontent.com/71001536/171375428-3f8fbd3e-c2f9-49dc-88ba-f40f59f37d2f.png)
+
+* Use `terraform show` or `terraform state list` to display the aws resources that was deployed using terraform 
+
+![image](https://user-images.githubusercontent.com/71001536/171375968-ab8bf4ab-53b2-4c24-83bb-24b546c6ae7b.png)
+
+![image](https://user-images.githubusercontent.com/71001536/171377291-b511d579-fdd1-4585-a06c-ab2983609676.png)
+
+# REFACTORING CODE FOR SCLABILITY AND EASY CONFIGURATION
+
+
+
+
 
 
 
