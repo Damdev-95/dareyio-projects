@@ -255,3 +255,112 @@ Now lets break it down:
 * The third part *: and var.preferred_number_of_public_subnets* means, if the first condition is false, i.e preferred number of public subnets is not null then set the value to whatever is definied in var.preferred_number_of_public_subnets
 
 # Introducing variables.tf & terraform.tfvars
+
+* This enables the use of variables files in the terraform configuration, terraform.tfvars has priority than variables.tf 
+
+# varaibles.tf
+
+```
+variable "region" {
+  default = "us-west-2"
+}
+
+variable "vpc_cidr" {
+  default = "192.168.0.0/16"
+}
+
+variable "enable_dns_support" {
+  default = "true"
+}
+
+variable "enable_dns_hostnames" {
+  default = "true"
+}
+
+variable "enable_classiclink" {
+  default = "false"
+}
+
+variable "enable_classiclink_dns_support" {
+  default = "false"
+}
+
+variable "preferred_number_of_public_subnets" {
+  default = 2
+}
+```
+
+# terraform.tfvars
+
+```
+region = "us-west-2"
+
+vpc_cidr = "192.168.0.0/16"
+
+enable_dns_support = "true"
+
+enable_dns_hostnames = "true"
+
+enable_classiclink = "false"
+
+enable_classiclink_dns_support = "false"
+
+preferred_number_of_public_subnets = 2
+```
+
+# provider.tf
+
+```
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+    }
+  }
+}
+
+provider "aws" {
+  region = var.region
+
+}
+```
+
+# main.tf
+
+```
+resource "aws_vpc" "project_16" {
+  cidr_block                     = var.vpc_cidr
+  enable_dns_hostnames           = var.enable_dns_hostnames
+  enable_dns_support             = var.enable_dns_support
+  enable_classiclink             = var.enable_classiclink
+  enable_classiclink_dns_support = var.enable_classiclink_dns_support
+
+
+  tags = {
+    Name = "dev"
+  }
+
+}
+
+
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
+
+
+resource "aws_subnet" "project_16_public_subnet" {
+  count                   = var.preferred_number_of_public_subnets == null ? length(data.aws_availability_zones.available.names) : var.preferred_number_of_public_subnets
+  vpc_id                  = aws_vpc.project_16.id
+  cidr_block              = cidrsubnet(var.vpc_cidr, 8, count.index)
+  map_public_ip_on_launch = true
+  availability_zone       = data.aws_availability_zones.available.names[count.index]
+  tags = {
+    Name = "dev-public"
+
+  }
+}
+
+
+
+```
