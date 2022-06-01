@@ -143,8 +143,57 @@ terraform init
 
 ![image](https://user-images.githubusercontent.com/71001536/171377291-b511d579-fdd1-4585-a06c-ab2983609676.png)
 
-# REFACTORING CODE FOR SCLABILITY AND EASY CONFIGURATION
+* Usse `terraform destroy` or `terraform destroy -auto-approve` to delete and clean ip AWS resources.
 
+![image](https://user-images.githubusercontent.com/71001536/171378730-a593c035-8b15-404a-9b31-dc0b53d155fe.png)
+
+# REFACTORING CODE FOR SCALABILITY AND EASY CONFIGURATION
+
+* Using *variable.tf* to indicate some reources in the *main.tf* file
+
+```
+variable "region" {
+  default = "us-west-2"
+}
+
+variable "vpc_cidr" {
+  default = "192.168.0.0/16"
+}
+
+variable "enable_dns_support" {
+  default = "true"
+}
+
+variable "enable_dns_hostnames" {
+  default = "true"
+}
+
+variable "enable_classiclink" {
+  default = "false"
+}
+
+variable "enable_classiclink_dns_support" {
+  default = "false"
+}
+```
+* To improve the deployment of the subnets in the availability in the resource blocks using  *Loops & Data sources*
+* Get list of availability zones
+```
+ data "aws_availability_zones" "available" {
+        state = "available"
+        }
+```
+* To make use of this new data resource, we will need to introduce a count argument in the subnet block
+```
+resource "aws_subnet" "public" { 
+        count                   = 2
+        vpc_id                  = aws_vpc.main.id
+        cidr_block              = "172.16.1.0/24"
+        map_public_ip_on_launch = true
+        availability_zone       = data.aws_availability_zones.available.names[count.index]
+
+    }
+```
 
 
 
