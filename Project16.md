@@ -361,6 +361,12 @@ resource "aws_subnet" "project_16_public_subnet" {
   }
 }
 ```
+# FOLDER STRUCTURE
+
+![image](https://user-images.githubusercontent.com/71001536/171394392-0a1aee43-b0d0-4da2-af2a-8b579756fa40.png)
+
+# DEPLOYMENT
+
 ![image](https://user-images.githubusercontent.com/71001536/171392911-70634f93-0be4-4c63-b7bc-95ba288be371.png)
 
 ![image](https://user-images.githubusercontent.com/71001536/171393050-96729eb6-5d64-4341-bd64-6abb72d9b2a6.png)
