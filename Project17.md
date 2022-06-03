@@ -105,7 +105,11 @@ resource "aws_nat_gateway" "natgw" {
 }
 ```
 # AWS ROUTES
+* Ensure they are properly tagged.
 
+* aws_route_table
+* aws_route
+* aws_route_table_association
 ```
 resource "aws_route_table" "private-rtb" {
   vpc_id = aws_vpc.project_16.id
@@ -160,4 +164,72 @@ resource "aws_route_table_association" "public-subnets-assoc" {
   subnet_id      = element(aws_subnet.public[*].id, count.index)
   route_table_id = aws_route_table.public-rtb.id
 }
+```
+# AWS Identity and Access Management
+# IaM and Roles
+We want to pass an IAM role our EC2 instances to give them access to some specific resources, so we need to do the following:
+Trust policy: This include the temporary credentials to assume the role.
+Permissiom policy: This include the permission to the aws resources.
+
+# Create AssumeRole
+Assume Role uses Security Token Service (STS) API that returns a set of temporary security credentials that you can use to access AWS resources that you might not normally have access to. These temporary credentials consist of an access key ID, a secret access key, and a security token. Typically, you use AssumeRole within your account or for cross-account access.
+```
+resource "aws_iam_role" "ec2_instance_role" {
+  name = "ec2_instance_role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Sid    = ""
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+      },
+    ]
+  })
+  tags = merge(
+    var.tags,
+    {
+      Name = "aws assume role"
+    },
+  )
+}
+
+resource "aws_iam_policy" "policy" {
+  name        = "ec2_instance_policy"
+  description = "A test policy"
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "ec2:Describe*",
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      },
+    ]
+
+  })
+
+  tags = merge(
+    var.tags,
+    {
+      Name =  "aws assume policy"
+    },
+  )
+}
+
+resource "aws_iam_role_policy_attachment" "test-attach" {
+  role       = aws_iam_role.ec2_instance_role.name
+  policy_arn = aws_iam_policy.policy.arn
+}
+
+resource "aws_iam_instance_profile" "ip" {
+  name = "aws_instance_profile_test"
+  role = aws_iam_role.ec2_instance_role.name
+}
+
 ```
