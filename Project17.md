@@ -233,3 +233,4 @@ resource "aws_iam_instance_profile" "ip" {
 }
 
 ```
+![image](https://user-images.githubusercontent.com/71001536/171882928-6b593e36-c0dc-4fd3-8541-477da89962d6.png)
