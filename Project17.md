@@ -473,3 +473,81 @@ resource "aws_security_group_rule" "inbound-mysql-webserver" {
 }
 ```
 ![image](https://user-images.githubusercontent.com/71001536/172016842-0a0b82d9-3ef9-4dcb-9f47-bb20807f10f9.png)
+
+
+# Create the EXTERNAL LOAD BALANCER 
+This is done first, in order to attach the public certifcate  fron the ACM
+
+```
+
+```
+
+# ACM, Public certificate attached to the External Load balancer 
+
+* This is done to attached a public certificate to all sub-domain for the hosted zone, which enables a secure connection for the domain 
+```
+# The entire section create a certiface, public zone, and validate the certificate using DNS method
+
+# Create the certificate using a wildcard for all the domains created in douxtech.xyz
+resource "aws_acm_certificate" "douxtech" {
+  domain_name       = "*.douxtech.xyz"
+  validation_method = "DNS"
+}
+
+# calling the hosted zone
+data "aws_route53_zone" "douxtech" {
+  name         = "douxtech.xyz"
+  private_zone = false
+}
+
+# selecting validation method
+resource "aws_route53_record" "douxtech" {
+  for_each = {
+    for dvo in aws_acm_certificate.douxtech.domain_validation_options : dvo.domain_name => {
+      name   = dvo.resource_record_name
+      record = dvo.resource_record_value
+      type   = dvo.resource_record_type
+    }
+  }
+
+  allow_overwrite = true
+  name            = each.value.name
+  records         = [each.value.record]
+  ttl             = 60
+  type            = each.value.type
+  zone_id         = data.aws_route53_zone.douxtech.zone_id
+}
+
+# validate the certificate through DNS method
+resource "aws_acm_certificate_validation" "douxtech" {
+  certificate_arn         = aws_acm_certificate.douxtech.arn
+  validation_record_fqdns = [for record in aws_route53_record.douxtech : record.fqdn]
+}
+
+# create records for tooling
+resource "aws_route53_record" "tooling" {
+  zone_id = data.aws_route53_zone.douxtech.zone_id
+  name    = "tooling.douxtech.xyz"
+  type    = "A"
+
+  alias {
+    name                   = aws_lb.ext-alb.dns_name
+    zone_id                = aws_lb.ext-alb.zone_id
+    evaluate_target_health = true
+  }
+}
+
+
+# create records for wordpress
+resource "aws_route53_record" "wordpress" {
+  zone_id = data.aws_route53_zone.douxtech.zone_id
+  name    = "wordpress.douxtech.xyz"
+  type    = "A"
+
+  alias {
+    name                   = aws_lb.ext-alb.dns_name
+    zone_id                = aws_lb.ext-alb.zone_id
+    evaluate_target_health = true
+  }
+}
+```
