@@ -624,3 +624,5 @@ resource "aws_route53_record" "wordpress" {
 
 ![image](https://user-images.githubusercontent.com/71001536/172064948-4b85346c-26c9-4fad-bcd0-771fbf9d4801.png)
 
+![image](https://user-images.githubusercontent.com/71001536/172066456-f41585c4-5ad1-4522-aa6e-bed97206d407.png)
+
