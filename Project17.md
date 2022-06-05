@@ -763,3 +763,25 @@ resource "aws_db_instance" "douxtech-rds" {
   multi_az               = "true"
 }
 ```
+
+# IP ADDRESS 
+
+# SUBNETS
+
+# CIDR 
+
+# IP ROUTING 
+
+# INTERNET GATEWAY
+
+# NAT 
+
+#  OSI Model, TCP/IP suite
+
+#  assume role policy and role policy
+* Role policy consists of the trust policy and the perminssion policy 
+* Both consists of the role policy 
+* Assume role: this is the trust policy, which is given to the identities:EC2 instance for security credentials.
+* The trust policy assume STS(SECURE TOKEN SERVICE) to the identity which serves as an authentication to access the AWS resources.
+* The permission is the authorization policy for specifc AWS that the trust idenity can have access to deploy.
+* Both are included the json policy 
