@@ -615,3 +615,12 @@ resource "aws_route53_record" "wordpress" {
 }
 ```
 ![image](https://user-images.githubusercontent.com/71001536/172044330-19291ca1-7db2-46a8-83fb-7341b1a08ad1.png)
+
+# Depreciated Warning after upgrade 
+
+* I upgrade the terraform using `terraform init -upgrade`
+* Then shows some depreciated warning regarding some resources 
+
+
+![image](https://user-images.githubusercontent.com/71001536/172064948-4b85346c-26c9-4fad-bcd0-771fbf9d4801.png)
+
