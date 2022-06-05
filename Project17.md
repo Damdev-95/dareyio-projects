@@ -475,7 +475,7 @@ resource "aws_security_group_rule" "inbound-mysql-webserver" {
 ![image](https://user-images.githubusercontent.com/71001536/172016842-0a0b82d9-3ef9-4dcb-9f47-bb20807f10f9.png)
 
 
-# Create the EXTERNAL LOAD BALANCER and INTERNAL LOAD BALANCER
+# Create the EXTERNAL LOAD BALANCER, INTERNAL LOAD BALANCER, TARGET GROUPS AND LISTENERS
 This is done first, in order to attach the public certifcate  fron the ACM
 
 ```
@@ -614,3 +614,4 @@ resource "aws_route53_record" "wordpress" {
   }
 }
 ```
+![image](https://user-images.githubusercontent.com/71001536/172044330-19291ca1-7db2-46a8-83fb-7341b1a08ad1.png)
