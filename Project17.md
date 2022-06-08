@@ -472,6 +472,144 @@ resource "aws_security_group_rule" "inbound-mysql-webserver" {
   security_group_id        = aws_security_group.datalayer-sg.id
 }
 ```
+
+# Storage and Database
+
+* RDS Terraform file 
+```
+# create DB subnet group from the private subnets
+resource "aws_db_subnet_group" "douxtech-rds" {
+  name       = "douxtech-rds"
+  subnet_ids = [aws_subnet.private[2].id, aws_subnet.private[3].id]
+
+  tags = merge(
+    var.tags,
+    {
+      Name = "douxtech-rds"
+    },
+  )
+}
+
+# create the RDS instance with the subnets group
+resource "aws_db_instance" "douxtech-rds" {
+  allocated_storage      = 20
+  storage_type           = "gp2"
+  engine                 = "mysql"
+  engine_version         = "5.7"
+  instance_class         = "db.t2.micro"
+  db_name                = "testdb"
+  username               = var.master-username
+  password               = var.master-password
+  parameter_group_name   = "default.mysql5.7"
+  db_subnet_group_name   = aws_db_subnet_group.douxtech-rds.name
+  skip_final_snapshot    = true
+  vpc_security_group_ids = [aws_security_group.datalayer-sg.id]
+  multi_az               = "true"
+}
+```
+
+* EFS Terraform file 
+```
+# create key from key management system
+resource "aws_kms_key" "douxtech-kms" {
+  description = "KMS key "
+  policy      = <<EOF
+  {
+  "Version": "2012-10-17",
+  "Id": "kms-key-policy",
+  "Statement": [
+    {
+      "Sid": "Enable IAM User Permissions",
+      "Effect": "Allow",
+      "Principal": { "AWS": "arn:aws:iam::${var.account_no}:user/IAMadmin" },
+      "Action": "kms:*",
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+}
+
+# create key alias
+resource "aws_kms_alias" "alias" {
+  name          = "alias/kms"
+  target_key_id = aws_kms_key.douxtech-kms.key_id
+}
+
+# create Elastic file system
+resource "aws_efs_file_system" "douxtech-efs" {
+  encrypted  = true
+  kms_key_id = aws_kms_key.douxtech-kms.arn
+
+  tags = merge(
+    var.tags,
+    {
+      Name = "douxtech-efs"
+    },
+  )
+}
+
+
+# set first mount target for the EFS 
+resource "aws_efs_mount_target" "subnet-1" {
+  file_system_id  = aws_efs_file_system.douxtech-efs.id
+  subnet_id       = aws_subnet.private[0].id
+  security_groups = [aws_security_group.datalayer-sg.id]
+}
+
+
+# set second mount target for the EFS 
+resource "aws_efs_mount_target" "subnet-2" {
+  file_system_id  = aws_efs_file_system.douxtech-efs.id
+  subnet_id       = aws_subnet.private[1].id
+  security_groups = [aws_security_group.datalayer-sg.id]
+}
+
+
+# create access point for wordpress
+resource "aws_efs_access_point" "wordpress" {
+  file_system_id = aws_efs_file_system.douxtech-efs.id
+
+  posix_user {
+    gid = 0
+    uid = 0
+  }
+
+  root_directory {
+    path = "/wordpress"
+
+    creation_info {
+      owner_gid   = 0
+      owner_uid   = 0
+      permissions = 0755
+    }
+
+  }
+
+}
+
+
+# create access point for tooling
+resource "aws_efs_access_point" "tooling" {
+  file_system_id = aws_efs_file_system.douxtech-efs.id
+  posix_user {
+    gid = 0
+    uid = 0
+  }
+
+  root_directory {
+
+    path = "/tooling"
+
+    creation_info {
+      owner_gid   = 0
+      owner_uid   = 0
+      permissions = 0755
+    }
+
+  }
+}
+```
 ![image](https://user-images.githubusercontent.com/71001536/172016842-0a0b82d9-3ef9-4dcb-9f47-bb20807f10f9.png)
 
 
@@ -763,6 +901,135 @@ resource "aws_db_instance" "douxtech-rds" {
   multi_az               = "true"
 }
 ```
+# Variables 
+
+* variables.tf
+```
+variable "region" {
+  type        = string
+  description = "The region to deploy resources"
+}
+
+variable "vpc_cidr" {
+  type        = string
+  description = "The VPC cidr block"
+}
+
+variable "enable_dns_support" {
+  type = bool
+}
+
+variable "enable_dns_hostnames" {
+  type = bool
+}
+
+variable "enable_classiclink" {
+  type = bool
+}
+
+variable "enable_classiclink_dns_support" {
+  type = bool
+}
+
+variable "preferred_number_of_public_subnets" {
+  type        = number
+  description = "Number of public subnets"
+}
+
+variable "preferred_number_of_private_subnets" {
+  type        = number
+  description = "Number of private subnets"
+}
+
+variable "name" {
+  type    = string
+  default = "Project_16"
+
+}
+
+variable "tags" {
+  description = "A mapping of tags to assign to all resources."
+  type        = map(string)
+  default     = {}
+}
+
+
+variable "ami" {
+  type        = string
+  description = "AMI id for the launch template"
+
+}
+
+variable "keypair" {
+  type        = string
+  description = "keypair for the ec2 instances"
+
+}
+
+variable "account_no" {
+  type        = number
+  description = "Account number of the AWS account"
+}
+
+variable "master-username" {
+  type        = string
+  description = "RDS Username for the Database"
+}
+
+variable "master-password" {
+  type        = string
+  description = "RDS Password for the Database"
+}
+```
+
+* terraform.tfvars 
+
+```
+region = "us-east-1"
+
+vpc_cidr = "192.168.0.0/16"
+
+enable_dns_support = "true"
+
+enable_dns_hostnames = "true"
+
+enable_classiclink = "false"
+
+enable_classiclink_dns_support = "false"
+
+preferred_number_of_public_subnets = 2
+
+preferred_number_of_private_subnets = 4
+
+ami = "ami-0c4f7023847b90238"
+
+keypair = "douxtech"
+
+account_no = "014285054687"
+
+master-username = "admin"
+
+master-password = "douxtech"
+
+tags = {
+  Enviroment      = "development"
+  Owner-Email     = "douxtech.ng@gmail.com"
+  Managed-By      = "Terraform"
+  Billing-Account = "014285054687"
+}
+```
+# DEPLOYMENT 
+
+![image](https://user-images.githubusercontent.com/71001536/172569449-e2c17cc2-691a-4b3b-8881-a22edbea49e6.png)
+
+![image](https://user-images.githubusercontent.com/71001536/172569695-cc3bf2f3-4027-4e19-9dde-d18be0706926.png)
+
+![image](https://user-images.githubusercontent.com/71001536/172571567-e1c9549b-d0d0-4738-a43f-436112bf6185.png)
+
+![image](https://user-images.githubusercontent.com/71001536/172571914-d46ebd0a-a793-4adb-8d1b-b89078286abb.png)
+
+![image](https://user-images.githubusercontent.com/71001536/172572234-8b69abd6-758a-4a8c-a247-5ab66815418b.png)
+
 
 # IP ADDRESS 
 This is the logical addressing of network device, it enables identification of a device , how it can be reached over the network.
