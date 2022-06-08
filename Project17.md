@@ -765,18 +765,38 @@ resource "aws_db_instance" "douxtech-rds" {
 ```
 
 # IP ADDRESS 
+This is the logical addressing of network device, it enables identification of a device , how it can be reached over the network.
+It consits of 32-bits numbers, which has the network and host.
+The network defines which class of ip adrees it belongs to, while the host represent the number of allocable address to the device.
 
 # SUBNETS
+A separate and identifiable portion of an organization's network, typically arranged on one floor, building or geographical location
 
 # CIDR 
+Classless inter-domain routing (CIDR) is a set of Internet protocol (IP) standards that is used to create unique identifiers for networks and individual devices.
+CIDR IP addresses consist of two groups of numbers, which are also referred to as groups of bits. The most important of these groups is the network address, and it is used to identify a network or a sub-network (subnet). The lesser of the bit groups is the host identifier. The host identifier is used to determine which host or device on the network should receive incoming information packets
 
 # IP ROUTING 
+IP routing is the process of sending packets from a host on one network to another host on a different remote network. This process is usually done by routers.
 
 # INTERNET GATEWAY
+An Internet Gateway (IGW) is a logical connection between an Amazon VPC and the Internet. It is not a physical device. Only one can be associated with each VPC. It does not limit the bandwidth of Internet connectivity.
+It allows resources in the VPC to connects to the internet, which is added on the route table directing to default route 0.0.0.0/0.
 
 # NAT 
+ Network Address Translation (NAT) is designed for IP address conservation. It enables private IP networks that use unregistered IP addresses to connect to the Internet. NAT operates on a router, usually connecting two networks together, and translates the private (not globally unique) addresses in the internal network into legal addresses, before packets are forwarded to another network.
+
+As part of this capability, NAT can be configured to advertise only one address for the entire network to the outside world. This provides additional security by effectively hiding the entire internal network behind that address. NAT offers the dual functions of security and address conservation and is typically implemented in remote-access environments.
 
 #  OSI Model, TCP/IP suite
+
+* OSI model is a generic model that is based upon functionalities of each layer. TCP/IP model is a protocol-oriented standard.
+* OSI model distinguishes the three concepts, namely, services, interfaces, and protocols. TCP/IP does not have a clear distinction between these three.
+* OSI model gives guidelines on how communication needs to be done, while TCP/IP protocols layout standards on which the Internet was developed. So, TCP/IP is a more practical model.
+* The layers in the models are compared with each other. The physical layer and the data link layer of the OSI model correspond to the link layer of the TCP/IP model. The network layers and the transport layers are the same in both the models. The session layer, the presentation layer and the application layer of the OSI model together form the application layer of the TCP/IP model.
+
+![image](https://user-images.githubusercontent.com/71001536/172563313-ca4e0b04-da5f-4b0f-b9f7-a69ff0be06e7.png)
+
 
 #  assume role policy and role policy
 * Role policy consists of the trust policy and the perminssion policy 
