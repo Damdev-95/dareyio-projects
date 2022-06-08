@@ -1030,6 +1030,9 @@ tags = {
 
 ![image](https://user-images.githubusercontent.com/71001536/172572234-8b69abd6-758a-4a8c-a247-5ab66815418b.png)
 
+![image](https://user-images.githubusercontent.com/71001536/172653786-f0976714-9687-44aa-ac32-c7268c864015.png)
+
+
 
 # IP ADDRESS 
 This is the logical addressing of network device, it enables identification of a device , how it can be reached over the network.
