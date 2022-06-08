@@ -1,4 +1,4 @@
-AUTOMATE INFRASTRUCTURE WITH IAC USING TERRAFORM. PART 3 – REFACTORING
+## AUTOMATE INFRASTRUCTURE WITH IAC USING TERRAFORM. PART 3 – REFACTORING
 
 Introducing Backend on S3
 Each Terraform configuration can specify a backend, which defines where and how operations are performed, where state snapshots are stored, etc.
