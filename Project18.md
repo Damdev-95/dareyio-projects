@@ -1,7 +1,8 @@
-## AUTOMATE INFRASTRUCTURE WITH IAC USING TERRAFORM. PART 3 – REFACTORING
+# AUTOMATE INFRASTRUCTURE WITH IAC USING TERRAFORM. PART 3 – REFACTORING
 
-Kindly find the github repository for the terraform files in Project [18](https://github.com/Damdev-95/Project18-PBL)
-Introducing Backend on S3
+## Kindly find the github repository for the terraform files in Project [18](https://github.com/Damdev-95/Project18-PBL)
+
+* Introducing Backend on S3
 Each Terraform configuration can specify a backend, which defines where and how operations are performed, where state snapshots are stored, etc.
 Take a peek into what the states file looks like. It is basically where terraform stores all the state of the infrastructure in json format.
 
