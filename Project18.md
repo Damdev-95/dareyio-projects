@@ -1,6 +1,6 @@
 # AUTOMATE INFRASTRUCTURE WITH IAC USING TERRAFORM. PART 3 – REFACTORING
 
-## Kindly find the github repository for the terraform files in Project [18](https://github.com/Damdev-95/Project18-PBL)
+## Kindly find the github repository for the terraform files in [Project 18](https://github.com/Damdev-95/Project18-PBL)
 
 * Introducing Backend on S3
 Each Terraform configuration can specify a backend, which defines where and how operations are performed, where state snapshots are stored, etc.
