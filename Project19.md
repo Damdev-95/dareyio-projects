@@ -60,3 +60,6 @@ Check the logs and verify that everything has run correctly. Note that Terraform
 By now, you have tried to launch plan and apply manually from Terraform Cloud web console. But since we have an integration with GitHub, the process can be triggered automatically. Try to change something in any of .tf files and look at "Runs" tab again – plan must be launched automatically, but to apply you still need to approve manually. Since provisioning of new Cloud resources might incur significant costs. Even though you can configure "Auto apply", it is always a good idea to verify your plan results before pushing it to apply to avoid any misconfigurations that can cause ‘bill shock’.
 
 ![image](https://user-images.githubusercontent.com/71001536/173857652-cdf7810e-4672-4eba-aeae-b2c3889875e7.png)
+
+![image](https://user-images.githubusercontent.com/71001536/173865280-b6873d63-782c-4560-8a05-090adf283244.png)
+
