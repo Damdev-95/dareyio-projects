@@ -63,3 +63,15 @@ By now, you have tried to launch plan and apply manually from Terraform Cloud we
 
 ![image](https://user-images.githubusercontent.com/71001536/173865280-b6873d63-782c-4560-8a05-090adf283244.png)
 
+![image](https://user-images.githubusercontent.com/71001536/174036923-20774203-ed77-42d3-8e74-ac7a6a5c22a4.png)
+
+
+# Installing Packer on Linux(Ubuntu)
+
+```
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+sudo apt-get update && sudo apt-get install packer
+```
+
+![image](https://user-images.githubusercontent.com/71001536/174040184-2c49b2da-c53e-4243-a4cc-6c2bb62796c5.png)
