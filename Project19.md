@@ -120,3 +120,10 @@ locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
 
 ![image](https://user-images.githubusercontent.com/71001536/174088829-8c95bdd6-25b5-40ad-b05a-0cfcf14c2ca7.png)
 
+# Terraform plan
+
+![image](https://user-images.githubusercontent.com/71001536/174185497-e6df4ba5-74a5-4c95-ae4a-596066593ce2.png)
+
+![image](https://user-images.githubusercontent.com/71001536/174185645-95f6cacb-70f7-4b7c-ae0c-320b4d36aeac.png)
+
+
