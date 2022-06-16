@@ -75,3 +75,17 @@ sudo apt-get update && sudo apt-get install packer
 ```
 
 ![image](https://user-images.githubusercontent.com/71001536/174040184-2c49b2da-c53e-4243-a4cc-6c2bb62796c5.png)
+
+# EXPORT ENVIRONMENT VARIABLES 
+```
+# for WINDOWS 
+setx AWS_ACCESS_KEY_ID "<YOUR_AWS_ACCESS_KEY_ID>"
+setx AWS_SECRET_ACCESS_KEY_ID "<YOUR_AWS_SECRET_ACCESS_KEY>"
+
+# for Linux
+export AWS_ACCESS_KEY_ID="<YOUR_AWS_ACCESS_KEY_ID>"
+export AWS_SECRET_ACCESS_KEY="<YOUR_AWS_SECRET_ACCESS_KEY>"
+
+#check for existence
+printenv | grep -i AWS_ACCESS
+```
