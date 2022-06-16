@@ -89,3 +89,30 @@ export AWS_SECRET_ACCESS_KEY="<YOUR_AWS_SECRET_ACCESS_KEY>"
 #check for existence
 printenv | grep -i AWS_ACCESS
 ```
+* create a file for the variables and provider in the ami_folder after the error below
+
+![image](https://user-images.githubusercontent.com/71001536/174069291-a2b49906-9ded-4eed-a8a3-16ab207ab4fa.png)
+
+
+```
+packer {
+  required_plugins {
+    amazon = {
+      version = ">= 0.0.2"
+      source  = "github.com/hashicorp/amazon"
+    }
+  }
+}
+```
+
+```
+variable "region" {
+  type    = string
+  default = "us-east-1"
+}
+
+locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
+```
+
+![image](https://user-images.githubusercontent.com/71001536/174068951-8470ca71-5588-4b26-9fe5-35d5c93c393f.png)
+
