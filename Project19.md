@@ -136,4 +136,7 @@ locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
 
 ![image](https://user-images.githubusercontent.com/71001536/174458733-58232e57-b710-4d64-a91c-47c6d5a2c8b9.png)
 
+# ANSIBLE 
+
+![image](https://user-images.githubusercontent.com/71001536/174460551-b6936864-7230-40b2-b1cd-e38cc5749a0c.png)
 
