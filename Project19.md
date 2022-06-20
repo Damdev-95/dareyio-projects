@@ -200,6 +200,7 @@ locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
 
 
 
-(Terraform repository)[https://github.com/Damdev-95/terraform_cloud.git]
-(Ansible repository)[https://github.com/Damdev-95/ansible-for-terraform-prj19.git]
+[Terraform repository](https://github.com/Damdev-95/terraform_cloud.git)
+
+[Ansible repository](https://github.com/Damdev-95/ansible-for-terraform-prj19.git)
 
