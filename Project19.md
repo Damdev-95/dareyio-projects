@@ -169,3 +169,15 @@ locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
 
 ![image](https://user-images.githubusercontent.com/71001536/174583877-a19ecb52-a4dc-42b4-a361-0fcd00e96e25.png)
 
+# Deployment on Tooling and Wordpress
+
+![image](https://user-images.githubusercontent.com/71001536/174584811-151ede11-b0e4-4a84-80fc-d8187e565ebb.png)
+
+![image](https://user-images.githubusercontent.com/71001536/174585014-15d67437-5c96-4584-81bc-fbc39dc8f525.png)
+
+![image](https://user-images.githubusercontent.com/71001536/174585448-ac9b72e5-f654-42bd-bc64-5e105882e63a.png)
+
+# ERROR CONNECTING TO DATABASE 
+![image](https://user-images.githubusercontent.com/71001536/174585630-23928173-70eb-4c55-b72d-49f6f84ce427.png)
+
+
