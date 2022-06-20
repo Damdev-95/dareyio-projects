@@ -139,11 +139,15 @@ locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
 # ANSIBLE 
 
 * Configure aws configure on the ansible server.
-* Add the role path in the ansible.cfg file ` roles_path = /home/ec2-user/ansible-for-terraform-prj19/roles `
+* Add the role path in the ansible.cfg file 
+
+` roles_path = /home/ec2-user/ansible-for-terraform-prj19/roles `
 * Then export on the ansible directory 
 
 ` export ANSIBLE_CONFIG=/home/ec2-user/ansible-for-terraform-prj19/ansible.cfg`
+* Confirm the ansible inventory file is reachable using the --graph
 
+`ansible-inventory -i inventory/aws_ec2.yml --graph `
 * execute the ansible playbook
 
 `ansible-playbook -i inventory/aws_ec2.yml playbooks/site.yml `
