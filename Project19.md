@@ -165,4 +165,7 @@ locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
 
 ![image](https://user-images.githubusercontent.com/71001536/174581616-404aaa32-ea70-4bc3-b492-325e8ae8b45c.png)
 
+# I resolved it by checking the internal load balancer url in the /etc/nginx/nginx.conf
+
+![image](https://user-images.githubusercontent.com/71001536/174583877-a19ecb52-a4dc-42b4-a361-0fcd00e96e25.png)
 
