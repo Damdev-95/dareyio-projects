@@ -189,6 +189,9 @@ locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
 
 # Implement the resource attachment for the load balancer on the terraform file for the nginx/web server 
 
+![image](https://user-images.githubusercontent.com/71001536/174591718-940941ce-9049-4426-b236-85a8a1a4f3f1.png)
+
+
 ![image](https://user-images.githubusercontent.com/71001536/174589624-60949e89-b90f-404b-8af8-238a4954113f.png)
 
 ![image](https://user-images.githubusercontent.com/71001536/174590196-893a28c4-1548-4f23-be24-e062fb2e8123.png)
