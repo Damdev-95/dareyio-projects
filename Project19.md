@@ -180,4 +180,10 @@ locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
 # ERROR CONNECTING TO DATABASE 
 ![image](https://user-images.githubusercontent.com/71001536/174585630-23928173-70eb-4c55-b72d-49f6f84ce427.png)
 
+* Edit the file using `sudo vi wp-config.php`
+
+![image](https://user-images.githubusercontent.com/71001536/174586866-b70a3896-50f9-43ac-bd40-b5914af5a6e5.png)
+
+![image](https://user-images.githubusercontent.com/71001536/174587139-c980fe02-9642-4dbe-affa-c59d46f34b59.png)
+
 
