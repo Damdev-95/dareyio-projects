@@ -138,9 +138,27 @@ locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
 
 # ANSIBLE 
 
+* Configure aws configure on the ansible server.
+* Add the role path in the ansible.cfg file ` roles_path = /home/ec2-user/ansible-for-terraform-prj19/roles `
+* Then export on the ansible directory 
+
+` export ANSIBLE_CONFIG=/home/ec2-user/ansible-for-terraform-prj19/ansible.cfg`
+
+* execute the ansible playbook
+
+`ansible-playbook -i inventory/aws_ec2.yml playbooks/site.yml `
+
 ![image](https://user-images.githubusercontent.com/71001536/174460551-b6936864-7230-40b2-b1cd-e38cc5749a0c.png)
 
 ![image](https://user-images.githubusercontent.com/71001536/174462772-c26c257a-2ac0-42ab-b636-242cd428e1c6.png)
 
 ![image](https://user-images.githubusercontent.com/71001536/174462801-9ed1f6fa-de08-4037-87a0-392a9a948056.png)
+
+![image](https://user-images.githubusercontent.com/71001536/174581872-0eb015f6-3010-452f-8121-1d40004c69dc.png)
+
+
+# Intial error on NGINX SERVER 
+
+![image](https://user-images.githubusercontent.com/71001536/174581616-404aaa32-ea70-4bc3-b492-325e8ae8b45c.png)
+
 
