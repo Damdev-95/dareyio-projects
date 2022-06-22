@@ -29,13 +29,11 @@ MySQL in container
 Let us start assembling our application from the Database layer – we will use a pre-built MySQL database container, configure it, and make sure it is ready to receive requests from our PHP application.
 
 # Step 1: Pull MySQL Docker Image from Docker Hub Registry
-Start by pulling the appropriate Docker image for MySQL. You can download a specific version or opt for the latest release, as seen in the following command:
+* Start by pulling the appropriate Docker image for MySQL. You can download a specific version or opt for the latest release, as seen in the following command:
 
-docker pull mysql/mysql-server:latest
-If you are interested in a particular version of MySQL, replace latest with the version number. Visit Docker Hub to check other tags here
+`docker pull mysql/mysql-server:latest`
+* List the images to check that you have downloaded them successfully:
+`docker image ls`
+![image](https://user-images.githubusercontent.com/71001536/175141484-b5d8e1cc-991e-411e-ba9a-c93d8b6007e8.png)
 
-List the images to check that you have downloaded them successfully:
-
-docker image ls
-Step 2: Deploy the MySQL Container to your Docker Engine
-Once you have the image, move on to deploying a new MySQL container with:
+# Step 2: Deploy the MySQL Container to your Docker Engine. Once you have the image, move on to deploying a new MySQL container with:
