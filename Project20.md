@@ -53,8 +53,13 @@ Connecting directly to the container running the MySQL server:
 
 `$ docker exec -it mysql bash`
 
+![image](https://user-images.githubusercontent.com/71001536/175242666-b5408a76-cc51-477f-8125-d4f37df598aa.png)
+
 or
 `$ docker exec -it mysql mysql -uroot -p`
+
+![image](https://user-images.githubusercontent.com/71001536/175243145-9a648a69-d83b-4492-a311-49fb8f2b8c42.png)
+
 
 Provide the root password when prompted. With that, you’ve connected the MySQL client to the server.
 
@@ -78,3 +83,6 @@ docker stop mysql
 docker rm mysql or <container ID> 04a34f46fb98
 ```
 verify that the container is deleted
+![image](https://user-images.githubusercontent.com/71001536/175243851-0538412c-eb84-4b12-a31d-15c5b16ae2ef.png)
+
+
