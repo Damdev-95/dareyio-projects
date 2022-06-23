@@ -36,4 +36,45 @@ Let us start assembling our application from the Database layer – we will use 
 `docker image ls`
 ![image](https://user-images.githubusercontent.com/71001536/175141484-b5d8e1cc-991e-411e-ba9a-c93d8b6007e8.png)
 
-# Step 2: Deploy the MySQL Container to your Docker Engine. Once you have the image, move on to deploying a new MySQL container with:
+# Step 2: Deploy the MySQL Container to your Docker Engine.
+* Once you have the image, move on to deploying a new MySQL container with:
+`docker run --name projectdb -e MYSQL_ROOT_PASSWORD=damilare -d mysql/mysql-server:latest`
+
+![image](https://user-images.githubusercontent.com/71001536/175240323-79ae3831-40da-4183-8885-8501fab3be80.png)
+
+* Then, check to see if the MySQL container is running: Assuming the container name specified is mysql-server
+`docker ps -a`
+
+# CONNECTING TO THE MYSQL DOCKER CONTAINER
+
+* Approach 1
+
+Connecting directly to the container running the MySQL server:
+
+`$ docker exec -it mysql bash`
+
+or
+
+`$ docker exec -it mysql mysql -uroot -p`
+Provide the root password when prompted. With that, you’ve connected the MySQL client to the server.
+
+Finally, change the server root password to protect your database. Exit the the shell with exit command
+
+Flags used
+
+exec used to execute a command from bash itself
+-it makes the execution interactive and allocate a pseudo-TTY
+bash this is a unix shell and its used as an entry-point to interact with our container
+mysql The second mysql in the command "docker exec -it mysql mysql -uroot -p" serves as the entry point to interact with mysql container just like bash or sh
+-u mysql username
+-p mysql password
+
+* Approach 2
+
+At this stage you are now able to create a docker container but we will need to add a network. So, stop and remove the previous mysql docker container.
+```
+docker ps -a
+docker stop mysql 
+docker rm mysql or <container ID> 04a34f46fb98
+```
+verify that the container is deleted
