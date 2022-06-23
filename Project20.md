@@ -212,4 +212,8 @@ The -p flag is used to map the container port with the host port. Within the con
 ```
 ![image](https://user-images.githubusercontent.com/71001536/175274577-829326ce-9590-4945-a0ba-0fc5e810b0b7.png)
 
+ ```
+ GRANT ALL ON * . * TO 'admin'@'%';
+ FLUSH PRIVILEGES;
+ ```
 
