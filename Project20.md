@@ -85,4 +85,16 @@ docker rm mysql or <container ID> 04a34f46fb98
 verify that the container is deleted
 ![image](https://user-images.githubusercontent.com/71001536/175243851-0538412c-eb84-4b12-a31d-15c5b16ae2ef.png)
 
+* First, create a network:
 
+`$ docker network create --subnet=192.168.10.0/24 tooling_app_network`
+
+* Creating a custom network is not necessary because even if we do not create a network, Docker will use the default network for all the containers you run. By default, the network we created above is of DRIVER Bridge. So, also, it is the default network. You can verify this by running the docker network ls command.
+
+But there are use cases where this is necessary. For example, if there is a requirement to control the cidr range of the containers running the entire application stack. This will be an ideal situation to create a network and specify the --subnet
+
+![image](https://user-images.githubusercontent.com/71001536/175245037-dd586049-ffbc-4907-91a0-a87bd6f7cc16.png)
+
+* For clarity’s sake, we will create a network with a subnet dedicated for our project and use it for both MySQL and the application so that they can connect.
+
+* Run the MySQL Server container using the created network.
