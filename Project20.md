@@ -96,5 +96,15 @@ But there are use cases where this is necessary. For example, if there is a requ
 ![image](https://user-images.githubusercontent.com/71001536/175245037-dd586049-ffbc-4907-91a0-a87bd6f7cc16.png)
 
 * For clarity’s sake, we will create a network with a subnet dedicated for our project and use it for both MySQL and the application so that they can connect.
+ Run the MySQL Server container using the created network.
 
-* Run the MySQL Server container using the created network.
+* First, let us create an environment variable to store the root password:
+
+ `$ export MYSQL_PW=`
+verify the environment variable is created
+
+* Then, pull the image and run the container, all in one command like below:
+
+` $ docker run --network tooling_app_network -h mysqlserverhost --name=mysql-server -e MYSQL_ROOT_PASSWORD=$MYSQL_PW  -d mysql/mysql-server:latest `
+
+![image](https://user-images.githubusercontent.com/71001536/175246484-ab29c95c-b110-4cd3-982e-79ddf6c96952.png)
