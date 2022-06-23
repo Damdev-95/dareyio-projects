@@ -115,3 +115,15 @@ $ docker run --network tooling_app_network -h mysqlserverhost --name=mysql-serve
 -h specifies a hostname
 
 ![image](https://user-images.githubusercontent.com/71001536/175246484-ab29c95c-b110-4cd3-982e-79ddf6c96952.png)
+
+* Create a file and name it create_user.sql and add the below code in the file:
+
+` $ CREATE USER ''@'%' IDENTIFIED BY ''; GRANT ALL PRIVILEGES ON * . * TO ''@'%';` 
+
+* Run the script:
+Ensure you are in the directory create_user.sql file is located or declare a path
+
+ `$ docker exec -i mysql-server mysql -uroot -p$MYSQL_PW < create_user.sql` 
+ 
+ ![image](https://user-images.githubusercontent.com/71001536/175249097-7bb60e6d-8a3f-4b19-8f9b-67d87228218f.png)
+
