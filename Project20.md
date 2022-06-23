@@ -152,15 +152,19 @@ Now you need to prepare a database schema so that the Tooling application can co
 ` $ git clone https://github.com/darey-devops/tooling.git `
 
 * On your terminal, export the location of the SQL file
-` $ export tooling_db_schema=/tooling_db_schema.sql `
+` $ export tooling_db_schema=/html/tooling_db_schema.sql `
 
 * You can find the tooling_db_schema.sql in the tooling/html/tooling_db_schema.sql folder of cloned repo.
 Verify that the path is exported
 
 `echo $tooling_db_schema`
 
+![image](https://user-images.githubusercontent.com/71001536/175257810-3cd5f8a2-cb65-4914-b4fc-d085d08633a4.png)
+
 * Use the SQL script to create the database and prepare the schema. With the docker exec command, you can execute a command in a running container.
 ` $ docker exec -i mysql-server mysql -uroot -p$MYSQL_PW < $tooling_db_schema` 
+
+![image](https://user-images.githubusercontent.com/71001536/175262113-0821d0d8-fecd-4c7b-a5ef-f1245597a7df.png)
 
 * Update the .env file with connection details to the database
 
@@ -179,5 +183,19 @@ MYSQL_USER mysql username for user export as environment variable
 MYSQL_PASS mysql password for the user exported as environment varaible
 MYSQL_DBNAME mysql databse name "toolingdb"
 ```
-Run the Tooling App
+## Run the Tooling App
 
+Containerization of an application starts with creation of a file with a special name - 'Dockerfile' (without any extensions). This can be considered as a 'recipe' or 'instruction' that tells Docker how to pack your application into a container. In this project, you will build your container from a pre-created Dockerfile, but as a DevOps, you must also be able to write Dockerfiles.
+
+So, let us containerize our Tooling application; here is the plan:
+
+* Make sure you have checked out your Tooling repo to your machine with Docker engine
+First, we need to build the Docker image the tooling app will use. The Tooling repo you cloned above has a Dockerfile for this purpose. Explore it and make sure you understand the code inside it.
+* Run docker build command
+* Launch the container with docker run
+* Try to access your application via port exposed from a container
+* Ensure you are inside the directory "tooling" that has the file Dockerfile and build your container :
+
+ `$ docker build -t tooling:0.0.1 . `
+
+In the above command, we specify a parameter -t, so that the image can be tagged tooling"0.0.1 - Also, you have to notice the . at the end. This is important as that tells Docker to locate the Dockerfile in the current directory you are running the command. Otherwise, you would need to specify the absolute path to the Dockerfile.
