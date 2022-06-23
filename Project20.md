@@ -54,8 +54,8 @@ Connecting directly to the container running the MySQL server:
 `$ docker exec -it mysql bash`
 
 or
-
 `$ docker exec -it mysql mysql -uroot -p`
+
 Provide the root password when prompted. With that, you’ve connected the MySQL client to the server.
 
 Finally, change the server root password to protect your database. Exit the the shell with exit command
