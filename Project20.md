@@ -199,3 +199,17 @@ First, we need to build the Docker image the tooling app will use. The Tooling r
  `$ docker build -t tooling:0.0.1 . `
 
 In the above command, we specify a parameter -t, so that the image can be tagged tooling"0.0.1 - Also, you have to notice the . at the end. This is important as that tells Docker to locate the Dockerfile in the current directory you are running the command. Otherwise, you would need to specify the absolute path to the Dockerfile.
+![image](https://user-images.githubusercontent.com/71001536/175271030-75ac1bac-3d51-4085-8366-16bc64516751.png)
+
+* Run the container:
+` $ docker run --network tooling_app_network -p 8085:80 -it tooling:0.0.1` 
+
+## Let us observe those flags in the command.
+
+```
+We need to specify the --network flag so that both the Tooling app and the database can easily connect on the same virtual network we created earlier.
+The -p flag is used to map the container port with the host port. Within the container, apache is the webserver running and, by default, it listens on port 80. You can confirm this with the CMD ["start-apache"] section of the Dockerfile. But we cannot directly use port 80 on our host machine because it is already in use. The workaround is to use another port that is not used by the host machine. In our case, port 8085 is free, so we can map that to port 80 running in the container.
+```
+![image](https://user-images.githubusercontent.com/71001536/175274577-829326ce-9590-4945-a0ba-0fc5e810b0b7.png)
+
+
