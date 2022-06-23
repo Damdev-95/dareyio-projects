@@ -118,7 +118,7 @@ $ docker run --network tooling_app_network -h mysqlserverhost --name=mysql-serve
 
 * Create a file and name it create_user.sql and add the below code in the file:
 
-` $ CREATE USER ''@'%' IDENTIFIED BY ''; GRANT ALL PRIVILEGES ON * . * TO ''@'%';` 
+` $ CREATE USER 'admin'@'%' IDENTIFIED BY 'project20'; GRANT ALL PRIVILEGES ON * . * TO 'admin'@'%';` 
 
 * Run the script:
 Ensure you are in the directory create_user.sql file is located or declare a path
@@ -129,7 +129,7 @@ Ensure you are in the directory create_user.sql file is located or declare a pat
 
 Run the MySQL Client Container:
 
-` $ docker run --network tooling_app_network --name mysql-client -it --rm mysql mysql -h mysqlserverhost -u  -p ` 
+` $ docker run --network tooling_app_network --name mysql-client -it --rm mysql mysql -h mysqlserverhost -uadmin  -p ` 
 
 ## Flags used:
 
@@ -141,3 +141,6 @@ Run the MySQL Client Container:
 * -u user created from the SQL script
 * admin username-for-user-created-from-the-SQL-script-create_user.sql
 * -p password specified for the user created from the SQL script
+
+![image](https://user-images.githubusercontent.com/71001536/175252868-b6003662-23eb-4153-bb69-614a71f325ce.png)
+
