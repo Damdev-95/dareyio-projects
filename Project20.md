@@ -127,3 +127,17 @@ Ensure you are in the directory create_user.sql file is located or declare a pat
  
  ![image](https://user-images.githubusercontent.com/71001536/175249097-7bb60e6d-8a3f-4b19-8f9b-67d87228218f.png)
 
+Run the MySQL Client Container:
+
+` $ docker run --network tooling_app_network --name mysql-client -it --rm mysql mysql -h mysqlserverhost -u  -p ` 
+
+## Flags used:
+
+* --name gives the container a name
+* -it runs in interactive mode and Allocate a pseudo-TTY
+* --rm automatically removes the container when it exits
+* --network connects a container to a network
+* -h a MySQL flag specifying the MySQL server Container hostname
+* -u user created from the SQL script
+* admin username-for-user-created-from-the-SQL-script-create_user.sql
+* -p password specified for the user created from the SQL script
