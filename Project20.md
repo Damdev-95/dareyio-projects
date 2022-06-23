@@ -144,3 +144,40 @@ Run the MySQL Client Container:
 
 ![image](https://user-images.githubusercontent.com/71001536/175252868-b6003662-23eb-4153-bb69-614a71f325ce.png)
 
+# Prepare database schema
+Now you need to prepare a database schema so that the Tooling application can connect to it.
+
+* Clone the Tooling-app repository from here
+
+` $ git clone https://github.com/darey-devops/tooling.git `
+
+* On your terminal, export the location of the SQL file
+` $ export tooling_db_schema=/tooling_db_schema.sql `
+
+* You can find the tooling_db_schema.sql in the tooling/html/tooling_db_schema.sql folder of cloned repo.
+Verify that the path is exported
+
+`echo $tooling_db_schema`
+
+* Use the SQL script to create the database and prepare the schema. With the docker exec command, you can execute a command in a running container.
+` $ docker exec -i mysql-server mysql -uroot -p$MYSQL_PW < $tooling_db_schema` 
+
+* Update the .env file with connection details to the database
+
+The .env file is located in the html tooling/html/.env folder but not visible in terminal. you can use vi or nano
+```
+sudo vi .env
+
+MYSQL_IP=mysqlserverhost
+MYSQL_USER=username
+MYSQL_PASS=client-secrete-password
+MYSQL_DBNAME=toolingdb
+Flags used:
+
+MYSQL_IP mysql ip address "leave as mysqlserverhost"
+MYSQL_USER mysql username for user export as environment variable
+MYSQL_PASS mysql password for the user exported as environment varaible
+MYSQL_DBNAME mysql databse name "toolingdb"
+```
+Run the Tooling App
+
