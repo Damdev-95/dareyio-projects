@@ -108,11 +108,11 @@ verify the environment variable is created
 ```
 $ docker run --network tooling_app_network -h mysqlserverhost --name=mysql-server -e MYSQL_ROOT_PASSWORD=$MYSQL_PW  -d mysql/mysql-server:latest 
 ```
-* Flags used
+## Flags used
 
--d runs the container in detached mode
---network connects a container to a network
--h specifies a hostname
+* -d runs the container in detached mode
+* --network connects a container to a network
+* -h specifies a hostname
 
 ![image](https://user-images.githubusercontent.com/71001536/175246484-ab29c95c-b110-4cd3-982e-79ddf6c96952.png)
 
