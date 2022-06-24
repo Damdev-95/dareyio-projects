@@ -321,6 +321,9 @@ There’s an easy fix to the “Permission denied while trying to connect to the
 
 ![image](https://user-images.githubusercontent.com/71001536/175551616-d512ebe5-1da0-4069-9a7c-41b8db7b0b55.png)
 
+![image](https://user-images.githubusercontent.com/71001536/175554509-fd53e405-8d8a-4f6a-9965-fd2e28155474.png)
+
+
 # Deployment with Docker Compose
 All we have done until now required quite a lot of effort to create an image and launch an application inside it. We should not have to always run Docker commands on the terminal to get our applications up and running. There are solutions that make it easy to write declarative code in YAML, and get all the applications and dependencies up and running with minimal effort by launching a single command.
 
@@ -390,6 +393,9 @@ volumes:
  
  * Verify that the compose is in the running status:
 `docker compose ls`
+
+![image](https://user-images.githubusercontent.com/71001536/175558543-601606af-2258-438b-9e9f-a3ca49bf633f.png)
+
 
  ## Practice Task №2 – Complete Continous Integration With A Test Stage
 * Document your understanding of all the fields specified in the Docker Compose file tooling.yaml
