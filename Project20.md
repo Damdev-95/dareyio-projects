@@ -306,9 +306,20 @@ Access the application from the browser
 
 * The permission denied by the docker daemon 
 ![image](https://user-images.githubusercontent.com/71001536/175536960-62eec696-569d-46a7-af14-efeb60e53349.png)
+
 There’s an easy fix to the “Permission denied while trying to connect to the Docker daemon socket” error you encounter when you run a Jenkins build or a pipeline’s Jenkinsfile that accesses a Docker image. It’s just a single terminal command and then a reboot:
 
 ` sudo usermod -a -G docker jenkins`
+
+`sudo systemctl restart jenkins`
+
+![image](https://user-images.githubusercontent.com/71001536/175549414-ffb25d11-1871-43e9-89f5-b1c9061a8dab.png)
+
+![image](https://user-images.githubusercontent.com/71001536/175550747-a194c972-1f9d-47cc-a5d0-9bd2c1fce652.png)
+
+# I discovered there is an error in the curl script , which I changed and then commit to the repo 
+
+![image](https://user-images.githubusercontent.com/71001536/175551616-d512ebe5-1da0-4069-9a7c-41b8db7b0b55.png)
 
 # Deployment with Docker Compose
 All we have done until now required quite a lot of effort to create an image and launch an application inside it. We should not have to always run Docker commands on the terminal to get our applications up and running. There are solutions that make it easy to write declarative code in YAML, and get all the applications and dependencies up and running with minimal effort by launching a single command.
