@@ -268,20 +268,24 @@ ENTRYPOINT [  "bash", "start-apache.sh" ]
 ```
 
 Run both database and app on your laptop Docker Engine
-` docker build -t phptodo:0.0.1 . `
+` docker build -t damdav95/php-todo-app .  `
 ![image](https://user-images.githubusercontent.com/71001536/175507593-54885d04-65e5-4a6c-8e6d-f1eeaecce984.png)
 
 # Laravel default port is 8000
 
-`docker run --network tooling_app_network --name=php-todo -p 8090:8000 -it phptodo:0.0.1 ` 
+`docker run --network tooling_app_network --name=php-todo -p 8090:8000 -it damdav95/php-todo-app `
 Access the application from the browser
 
 ![image](https://user-images.githubusercontent.com/71001536/175517718-2abf1758-7cd9-4e7a-a7d2-3e2ace5419b9.png)
+
+![image](https://user-images.githubusercontent.com/71001536/175524476-d28654ad-4646-47b0-8543-a6ee401a0509.png)
+
 
 # Part 2
 * Create an account in Docker Hub
 * Create a new Docker Hub repository
 * Push the docker images from your PC to the repository
+` docker push damdav95/php-todo-app`
 
 Part 3
 Write a Jenkinsfile that will simulate a Docker Build and a Docker Push to the registry
