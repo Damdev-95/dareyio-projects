@@ -191,9 +191,11 @@ So, let us containerize our Tooling application; here is the plan:
 
 * Make sure you have checked out your Tooling repo to your machine with Docker engine
 First, we need to build the Docker image the tooling app will use. The Tooling repo you cloned above has a Dockerfile for this purpose. Explore it and make sure you understand the code inside it.
-* Run docker build command
+
 * Launch the container with docker run
+`docker run --network tooling_app_network -p 8090:80 -it phptodo:0.0.1 `
 * Try to access your application via port exposed from a container
+
 * Ensure you are inside the directory "tooling" that has the file Dockerfile and build your container :
 
  `$ docker build -t tooling:0.0.1 . `
@@ -232,14 +234,55 @@ The -p flag is used to map the container port with the host port. Within the con
 
 The project below will challenge you a little bit, but the experience there is very valuable for future projects.
 
-Part 1
-Write a Dockerfile for the TODO app
+# Part 1
+
+* Write a Dockerfile for the TODO app
+## Dockerfile
+```
+FROM php:7.4.30-cli
+
+USER root
+WORKDIR  /var/www/html
+
+RUN apt-get update && apt-get install -y \
+    libpng-dev \
+    zlib1g-dev \
+    libxml2-dev \
+    libzip-dev \
+    libonig-dev \
+    zip \
+    curl \
+    unzip \
+    && docker-php-ext-configure gd \
+    && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install pdo_mysql \
+    && docker-php-ext-install mysqli \
+    && docker-php-ext-install zip \
+    && docker-php-source delete
+
+COPY . .
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+ENTRYPOINT [  "bash", "start-apache.sh" ]
+```
+
 Run both database and app on your laptop Docker Engine
+` docker build -t phptodo:0.0.1 . `
+![image](https://user-images.githubusercontent.com/71001536/175507593-54885d04-65e5-4a6c-8e6d-f1eeaecce984.png)
+
+# Laravel default port is 8000
+
+`docker run --network tooling_app_network --name=php-todo -p 8090:8000 -it phptodo:0.0.1 ` 
 Access the application from the browser
-Part 2
-Create an account in Docker Hub
-Create a new Docker Hub repository
-Push the docker images from your PC to the repository
+
+![image](https://user-images.githubusercontent.com/71001536/175517718-2abf1758-7cd9-4e7a-a7d2-3e2ace5419b9.png)
+
+# Part 2
+* Create an account in Docker Hub
+* Create a new Docker Hub repository
+* Push the docker images from your PC to the repository
+
 Part 3
 Write a Jenkinsfile that will simulate a Docker Build and a Docker Push to the registry
 Connect your repo to Jenkins
@@ -254,6 +297,7 @@ In this section, we will refactor the Tooling app POC so that we can leverage th
 
 First, install Docker Compose on your workstation from here
 Create a file, name it tooling.yaml
+```
 Begin to write the Docker Compose definitions with YAML syntax. The YAML file is used for defining services, networks, and volumes:
 version: "3.9"
 services:
@@ -263,10 +307,10 @@ services:
       - "5000:80"
     volumes:
       - tooling_frontend:/var/www/html
+```
 The YAML file has declarative fields, and it is vital to understand what they are used for.
-
 version: Is used to specify the version of Docker Compose API that the Docker Compose engine will connect to. This field is optional from docker compose version v1.27.0. You can verify your installed version with:
-docker-compose --version
+`docker-compose --version`
 docker-compose version 1.28.5, build c4eb3a1f
 service: A service definition contains a configuration that is applied to each container started for that service. In the snippet above, the only service listed there is tooling_frontend. So, every other field under the tooling_frontend service will execute some commands that relate only to that service. Therefore, all the below-listed fields relate to the tooling_frontend service.
 build
