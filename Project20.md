@@ -274,6 +274,7 @@ Run both database and app on your laptop Docker Engine
 # Laravel default port is 8000
 
 `docker run --network tooling_app_network --name=php-todo -p 8090:8000 -it damdav95/php-todo-app `
+
 Access the application from the browser
 
 ![image](https://user-images.githubusercontent.com/71001536/175517718-2abf1758-7cd9-4e7a-a7d2-3e2ace5419b9.png)
@@ -285,22 +286,30 @@ Access the application from the browser
 * Create an account in Docker Hub
 * Create a new Docker Hub repository
 * Push the docker images from your PC to the repository
+
+` docker login -u damdav95 -p <password>`
+
 ` docker push damdav95/php-todo-app`
 
-Part 3
-Write a Jenkinsfile that will simulate a Docker Build and a Docker Push to the registry
-Connect your repo to Jenkins
-Create a multi-branch pipeline
-Simulate a CI pipeline from a feature and master branch using previously created Jenkinsfile
-Ensure that the tagged images from your Jenkinsfile have a prefix that suggests which branch the image was pushed from. For example, feature-0.0.1.
-Verify that the images pushed from the CI can be found at the registry.
-Deployment with Docker Compose
+![image](https://user-images.githubusercontent.com/71001536/175529240-67cd2d68-057a-47a1-8470-25d8f9f9dca1.png)
+
+
+# Part 3
+* Write a Jenkinsfile that will simulate a Docker Build and a Docker Push to the registry
+* Connect your repo to Jenkins
+* Create a multi-branch pipeline
+* Simulate a CI pipeline from a feature and master branch using previously created Jenkinsfile
+* Ensure that the tagged images from your Jenkinsfile have a prefix that suggests which branch the image was pushed from. For example, feature-0.0.1.
+* Verify that the images pushed from the CI can be found at the registry.
+
+# Deployment with Docker Compose
 All we have done until now required quite a lot of effort to create an image and launch an application inside it. We should not have to always run Docker commands on the terminal to get our applications up and running. There are solutions that make it easy to write declarative code in YAML, and get all the applications and dependencies up and running with minimal effort by launching a single command.
 
-In this section, we will refactor the Tooling app POC so that we can leverage the power of Docker Compose.
+* In this section, we will refactor the Tooling app POC so that we can leverage the power of Docker Compose.
 
-First, install Docker Compose on your workstation from here
-Create a file, name it tooling.yaml
+* First, install Docker Compose on your workstation from here
+* Create a file, name it tooling.yaml
+
 ```
 Begin to write the Docker Compose definitions with YAML syntax. The YAML file is used for defining services, networks, and volumes:
 version: "3.9"
@@ -312,15 +321,20 @@ services:
     volumes:
       - tooling_frontend:/var/www/html
 ```
+
 The YAML file has declarative fields, and it is vital to understand what they are used for.
 version: Is used to specify the version of Docker Compose API that the Docker Compose engine will connect to. This field is optional from docker compose version v1.27.0. You can verify your installed version with:
-`docker-compose --version`
+
+```
+docker-compose --version
 docker-compose version 1.28.5, build c4eb3a1f
+```
+
 service: A service definition contains a configuration that is applied to each container started for that service. In the snippet above, the only service listed there is tooling_frontend. So, every other field under the tooling_frontend service will execute some commands that relate only to that service. Therefore, all the below-listed fields relate to the tooling_frontend service.
-build
-port
-volumes
-links
+* build
+* port
+* volumes
+* links
 You can visit the site here to find all the fields and read about each one that currently matters to you -> https://www.balena.io/docs/reference/supervisor/docker-compose/
 
 You may also go directly to the official documentation site to read about each field here -> https://docs.docker.com/compose/compose-file/compose-file-v3/
