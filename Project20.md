@@ -218,4 +218,14 @@ The -p flag is used to map the container port with the host port. Within the con
  GRANT ALL ON * . * TO 'admin'@'%';
  FLUSH PRIVILEGES;
  ```
+ # I encounter issues at this point(SINCE YESTERDAY)
+ 
+ * I later discvered that my sql-server is on the default network not the custom network 
+ * I really learnt alot, troubleshooting the docker, mysql though it takes my time 
+ 
+ ![image](https://user-images.githubusercontent.com/71001536/175499719-190a0b99-3d9b-415e-bf79-2d9c674ce63c.png)
+ 
+ ![image](https://user-images.githubusercontent.com/71001536/175500185-96d9dc1a-7c10-4102-be79-575c0bbc8cd9.png)
+
+
 
