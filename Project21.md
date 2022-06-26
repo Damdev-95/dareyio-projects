@@ -283,3 +283,184 @@ aws elbv2 create-listener \
 
 ![image](https://user-images.githubusercontent.com/71001536/175835016-12a91e6a-a335-4353-b749-70c9110f2ebf.png)
 
+## K8s Public Address
+
+* Get the Kubernetes Public address
+
+```
+KUBERNETES_PUBLIC_ADDRESS=$(aws elbv2 describe-load-balancers \
+--load-balancer-arns ${LOAD_BALANCER_ARN} \
+--output text --query 'LoadBalancers[].DNSName')
+```
+
+# STEP 2 – CREATE COMPUTE RESOURCES
+
+Get an image to create EC2 instances:
+
+```
+IMAGE_ID=$(aws ec2 describe-images --owners 099720109477 \
+  --filters \
+  'Name=root-device-type,Values=ebs' \
+  'Name=architecture,Values=x86_64' \
+  'Name=name,Values=ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*' \
+  | jq -r '.Images|sort_by(.Name)[-1]|.ImageId')
+  ```
+## SSH key-pair
+
+* Create SSH Key-Pair
+
+```
+mkdir -p ssh
+
+aws ec2 create-key-pair \
+  --key-name ${NAME} \
+  --output text --query 'KeyMaterial' \
+  > ssh/${NAME}.id_rsa
+chmod 600 ssh/${NAME}.id_rsa
+```
+
+## EC2 Instances for Controle Plane (Master Nodes)
+
+* Create 3 Master nodes: Note – Using t2.micro instead of t2.small as t2.micro is covered by AWS free tier
+
+```
+for i in 0 1 2; do
+  instance_id=$(aws ec2 run-instances \
+    --associate-public-ip-address \
+    --image-id ${IMAGE_ID} \
+    --count 1 \
+    --key-name ${NAME} \
+    --security-group-ids ${SECURITY_GROUP_ID} \
+    --instance-type t2.micro \
+    --private-ip-address 172.31.0.1${i} \
+    --user-data "name=master-${i}" \
+    --subnet-id ${SUBNET_ID} \
+    --output text --query 'Instances[].InstanceId')
+  aws ec2 modify-instance-attribute \
+    --instance-id ${instance_id} \
+    --no-source-dest-check
+  aws ec2 create-tags \
+    --resources ${instance_id} \
+    --tags "Key=Name,Value=${NAME}-master-${i}"
+done
+```
+
+![image](https://user-images.githubusercontent.com/71001536/175835436-8ff0e2d3-f017-47f5-af93-6cd3293bed95.png)
+
+## EC2 Instances for Worker Nodes
+
+* Create 3 worker nodes:
+
+```
+for i in 0 1 2; do
+  instance_id=$(aws ec2 run-instances \
+    --associate-public-ip-address \
+    --image-id ${IMAGE_ID} \
+    --count 1 \
+    --key-name ${NAME} \
+    --security-group-ids ${SECURITY_GROUP_ID} \
+    --instance-type t2.micro \
+    --private-ip-address 172.31.0.2${i} \
+    --user-data "name=worker-${i}|pod-cidr=172.20.${i}.0/24" \
+    --subnet-id ${SUBNET_ID} \
+    --output text --query 'Instances[].InstanceId')
+  aws ec2 modify-instance-attribute \
+    --instance-id ${instance_id} \
+    --no-source-dest-check
+  aws ec2 create-tags \
+    --resources ${instance_id} \
+    --tags "Key=Name,Value=${NAME}-worker-${i}"
+done
+
+```
+![image](https://user-images.githubusercontent.com/71001536/175835530-7c656ba6-81f3-43e9-a6e8-d10ec16378ee.png)
+
+
+## STEP 3 PREPARE THE SELF-SIGNED CERTIFICATE AUTHORITY AND GENERATE TLS CERTIFICATES
+
+The following components running on the Master node will require TLS certificates.
+
+* kube-controller-manager
+* kube-scheduler
+* etcd
+* kube-apiserver
+
+The following components running on the Worker nodes will require TLS certificates.
+
+* kubelet
+* kube-proxy
+
+Therefore, you will provision a PKI Infrastructure using cfssl which will have a Certificate Authority. The CA will then generate certificates for all the individual components.
+
+* Self-Signed Root Certificate Authority (CA)
+
+Here, you will provision a CA that will be used to sign additional TLS certificates.
+
+Generate the CA configuration file, Root Certificate, and Private key:
+
+```
+{
+
+cat > ca-config.json <<EOF
+{
+  "signing": {
+    "default": {
+      "expiry": "8760h"
+    },
+    "profiles": {
+      "kubernetes": {
+        "usages": ["signing", "key encipherment", "server auth", "client auth"],
+        "expiry": "8760h"
+      }
+    }
+  }
+}
+EOF
+
+cat > ca-csr.json <<EOF
+{
+  "CN": "Kubernetes",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "UK",
+      "L": "England",
+      "O": "Kubernetes",
+      "OU": "DAREY.IO DEVOPS",
+      "ST": "London"
+    }
+  ]
+}
+EOF
+
+cfssl gencert -initca ca-csr.json | cfssljson -bare ca
+
+}
+```
+* The file defines the following:
+
+```
+CN – Common name for the authority
+
+algo – the algorithm used for the certificates
+
+size – algorithm size in bits
+
+C – Country
+
+L – Locality (city)
+
+ST – State or province
+
+O – Organization
+
+OU – Organizational Unit
+
+```
+
+* output
+
+![image](https://user-images.githubusercontent.com/71001536/175835726-ef6fd1a8-19f4-4b4b-a5c9-cf6e49b6a3b5.png)
