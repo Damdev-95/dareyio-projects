@@ -966,8 +966,10 @@ Generating the Kube-Scheduler Kubeconfig
 ```
  
 ![image](https://user-images.githubusercontent.com/71001536/175838008-3351ad3e-fa30-47b8-9087-fa6ec5289dcb.png)
-  
-```
+ 
+## TASK: Distribute the files to their respective servers, using scp and a for loop like we have done previously. This is a test to validate that you understand which component must go to which node.
+
+ ```
 for i in 0 1 2; do
 instance="${NAME}-master-${i}" \
   external_ip=$(aws ec2 describe-instances \
@@ -977,6 +979,38 @@ instance="${NAME}-master-${i}" \
     kube-controller-manager.kubeconfig kube-scheduler.kubeconfig admin.kubeconfig ubuntu@${external_ip}:~/;
 done
 ```
+![image](https://user-images.githubusercontent.com/71001536/175895355-5cc98596-79e0-4639-a54b-610f3fb426d3.png)
+
+```
+
+for i in 0; do
+instance="${NAME}-worker-${i}" \
+  external_ip=$(aws ec2 describe-instances \
+    --filters "Name=tag:Name,Values=${instance}" \
+    --output text --query 'Reservations[].Instances[].PublicIpAddress')
+  scp -i ../ssh/${NAME}.id_rsa \
+     kube-proxy.kubeconfig k8s-cluster-from-ground-up-worker-${i}.kubeconfig ubuntu@${external_ip}:~/;
+done
+#
+for i in 1; do
+instance="${NAME}-worker-${i}" \
+  external_ip=$(aws ec2 describe-instances \
+    --filters "Name=tag:Name,Values=${instance}" \
+    --output text --query 'Reservations[].Instances[].PublicIpAddress')
+  scp -i ../ssh/${NAME}.id_rsa \
+     kube-proxy.kubeconfig k8s-cluster-from-ground-up-worker-${i}.kubeconfig ubuntu@${external_ip}:~/;
+done
+#
+for i in 2; do
+instance="${NAME}-worker-${i}" \
+  external_ip=$(aws ec2 describe-instances \
+    --filters "Name=tag:Name,Values=${instance}" \
+    --output text --query 'Reservations[].Instances[].PublicIpAddress')
+  scp -i ../ssh/${NAME}.id_rsa \
+     kube-proxy.kubeconfig k8s-cluster-from-ground-up-worker-${i}.kubeconfig ubuntu@${external_ip}:~/;
+done
+#
   
+```
   
 
