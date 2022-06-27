@@ -1009,8 +1009,15 @@ instance="${NAME}-worker-${i}" \
   scp -i ../ssh/${NAME}.id_rsa \
      kube-proxy.kubeconfig k8s-cluster-from-ground-up-worker-${i}.kubeconfig ubuntu@${external_ip}:~/;
 done
-#
-  
+#  
 ```
-  
+ ![image](https://user-images.githubusercontent.com/71001536/175897145-cb974c3b-5eff-454e-9050-9f881c3cefe0.png)
 
+
+![image](https://user-images.githubusercontent.com/71001536/175897816-8e6955bc-f428-4d00-8cf8-703e6b352908.png)
+
+## Install tmux and pane division
+  
+ sudo apt install tmux
+  ctrl- b + % ==========vertical pane 
+  ctrl- b + " ========== horizontal pane 
