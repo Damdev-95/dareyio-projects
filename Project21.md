@@ -964,4 +964,6 @@ Generating the Kube-Scheduler Kubeconfig
   kubectl config use-context default --kubeconfig=admin.kubeconfig
 }
 ```
-  
+ 
+![image](https://user-images.githubusercontent.com/71001536/175838008-3351ad3e-fa30-47b8-9087-fa6ec5289dcb.png)
+
