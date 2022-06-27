@@ -1023,3 +1023,9 @@ done
   ctrl- b + " ========== horizontal pane 
 
 ![image](https://user-images.githubusercontent.com/71001536/175904726-8c842aad-42fa-4137-8175-2f73b37a542c.png)
+ 
+![image](https://user-images.githubusercontent.com/71001536/175905865-ac190525-0a37-47e6-80c9-f8717d4c82a2.png)
+  
+![image](https://user-images.githubusercontent.com/71001536/175918911-82f4e40e-f86b-4cdb-b11f-0cd58f523aca.png)
+
+
