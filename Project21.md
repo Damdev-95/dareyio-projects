@@ -1021,3 +1021,5 @@ done
  sudo apt install tmux
   ctrl- b + % ==========vertical pane 
   ctrl- b + " ========== horizontal pane 
+
+![image](https://user-images.githubusercontent.com/71001536/175904726-8c842aad-42fa-4137-8175-2f73b37a542c.png)
