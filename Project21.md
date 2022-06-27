@@ -966,4 +966,17 @@ Generating the Kube-Scheduler Kubeconfig
 ```
  
 ![image](https://user-images.githubusercontent.com/71001536/175838008-3351ad3e-fa30-47b8-9087-fa6ec5289dcb.png)
+  
+```
+for i in 0 1 2; do
+instance="${NAME}-master-${i}" \
+  external_ip=$(aws ec2 describe-instances \
+    --filters "Name=tag:Name,Values=${instance}" \
+    --output text --query 'Reservations[].Instances[].PublicIpAddress')
+  scp -i ../ssh/${NAME}.id_rsa \
+    kube-controller-manager.kubeconfig kube-scheduler.kubeconfig admin.kubeconfig ubuntu@${external_ip}:~/;
+done
+```
+  
+  
 
