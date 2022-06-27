@@ -1027,5 +1027,81 @@ done
 ![image](https://user-images.githubusercontent.com/71001536/175905865-ac190525-0a37-47e6-80c9-f8717d4c82a2.png)
   
 ![image](https://user-images.githubusercontent.com/71001536/175918911-82f4e40e-f86b-4cdb-b11f-0cd58f523aca.png)
+  
+## SSH into the controller server
+
+* Master-1
+
+
+```
+master_1_ip=$(aws ec2 describe-instances \
+--filters "Name=tag:Name,Values=${NAME}-master-0" \
+--output text --query 'Reservations[].Instances[].PublicIpAddress')
+ssh -i k8s-cluster-from-ground-up.id_rsa ubuntu@${master_1_ip}
+```
+
+* Master-2
+
+```
+master_2_ip=$(aws ec2 describe-instances \
+--filters "Name=tag:Name,Values=${NAME}-master-1" \
+--output text --query 'Reservations[].Instances[].PublicIpAddress')
+ssh -i k8s-cluster-from-ground-up.id_rsa ubuntu@${master_2_ip}
+  
+```
+  
+* Master-3
+
+```  
+master_3_ip=$(aws ec2 describe-instances \
+--filters "Name=tag:Name,Values=${NAME}-master-2" \
+--output text --query 'Reservations[].Instances[].PublicIpAddress')
+ssh -i k8s-cluster-from-ground-up.id_rsa ubuntu@${master_3_ip}
+```
+  
+## Download and install etcd
+
+```
+  wget -q --show-progress --https-only --timestamping \
+  "https://github.com/etcd-io/etcd/releases/download/v3.4.15/etcd-v3.4.15-linux-amd64.tar.gz"
+```
+
+ * Extract and install the etcd server and the etcdctl command line utility:
+```  
+{
+tar -xvf etcd-v3.4.15-linux-amd64.tar.gz
+sudo mv etcd-v3.4.15-linux-amd64/etcd* /usr/local/bin/
+}
+## I had a issue here , the folder path is * sudo mv etcd-v3.4.15-linux-amd64 /usr/local/bin/ *
+  ```
+  
+* Configure the etcd server
+  
+```  
+{
+  sudo mkdir -p /etc/etcd /var/lib/etcd
+  sudo chmod 700 /var/lib/etcd
+  sudo cp ca.pem master-kubernetes-key.pem master-kubernetes.pem /etc/etcd/
+}
+```
+  
+The instance internal IP address will be used to serve client requests and communicate with etcd cluster peers. Retrieve the internal IP address for the current compute instance:
+
+`export INTERNAL_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)`
+
+Each etcd member must have a unique name within an etcd cluster. Set the etcd name to node Private IP address so it will uniquely identify the machine:
+
+```
+  ETCD_NAME=$(curl -s http://169.254.169.254/latest/user-data/ \
+  | tr "|" "\n" | grep "^name" | cut -d"=" -f2)
+echo ${ETCD_NAME}
+```
+  
+![image](https://user-images.githubusercontent.com/71001536/175935311-beb933fa-ccc6-409b-b205-ef26117907b8.png)
+
+![image](https://user-images.githubusercontent.com/71001536/175935510-4f93c61a-d13c-436d-b08c-e376064cf698.png)
+
+![image](https://user-images.githubusercontent.com/71001536/175939363-7b5b17e1-82a4-4044-a57c-27c5dc1ab645.png)
+
 
 
