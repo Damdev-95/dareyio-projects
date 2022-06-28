@@ -105,7 +105,7 @@ kubectl apply -f nginx-service.yaml
 ```
 kubectl  port-forward svc/nginx-service 8089:80
 ```
-![](./img/ScreenShot_6_27_2022_11_40_03_AM.png)
+!![image](https://user-images.githubusercontent.com/71001536/176304382-c443e57b-bb34-4019-bd70-66f09cd489a5.png)
 
 Unfortunately, this will not work quite yet. Because there is no way the service will be able to select the actual Pod it is meant to route traffic to. If there are hundreds of Pods running, there must be a way to ensure that the service only forwards requests to the specific Pod it is intended for.
 
