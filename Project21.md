@@ -1103,5 +1103,10 @@ echo ${ETCD_NAME}
 
 ![image](https://user-images.githubusercontent.com/71001536/175939363-7b5b17e1-82a4-4044-a57c-27c5dc1ab645.png)
 
-
+```
+sudo journalctl -u kube-apiserver
+cat /etc/systemd/system/kube-apiserver.service
+```
+  
+![image](https://user-images.githubusercontent.com/71001536/176136209-81a18db2-38b4-4535-9f9c-3dfb574316e9.png)
 
