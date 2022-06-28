@@ -1,10 +1,24 @@
 
 ## DEPLOYING APPLICATIONS INTO KUBERNETES CLUSTER
 
-![](./img/ter_ans_kub.png)
-## Deploying a random Pod
+* I used terraform to deploy the EKS cluster ,kindly find my github repo 
+* Installing  kubectl CLI 
 
-1. Create a Pod `nginx-pod.yaml` manifest on your master node
+```
+$ curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.21.2/2021-07-05/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
+echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc
+kubectl version --short --client
+  Client Version: v1.21.2-13+d2965f0db10712
+```
+![image](https://user-images.githubusercontent.com/71001536/176284273-698bfa24-9d8c-4c06-be01-0b0ad1c95edb.png)
+
+
+# Deploying a random Pod
+
+* Create a Pod `nginx-pod.yaml` manifest on your master node
+
 ```
  apiVersion: v1
  kind: Pod
@@ -21,30 +35,35 @@
        protocol: TCP
 ```
 
-2. Apply the manifest with the help of kubectl
+*  Apply the manifest with the help of kubectl
+
 ```
 kubectl apply -f nginx-pod.yaml
 ```
 
-3. Get an output of the pods running in the cluster
+*  Get an output of the pods running in the cluster
 ```
 kubectl get pods
 ```
+![image](https://user-images.githubusercontent.com/71001536/176285203-e7034e8d-c4c2-4483-8987-4d822ecad596.png)
 
-4. To see other fields introduced by kubernetes after you have deployed the resource, simply run below command
+* To check optional  fields given by kubernetes after deployed the resource, run below command
 ```
 kubectl get pod nginx-pod -o yaml 
 or
 kubectl describe pod nginx-pod
 ```
+![image](https://user-images.githubusercontent.com/71001536/176285770-1fe56ecb-cbe1-48c9-b411-7c3e4768f833.png)
 
-### ACCESSING THE APP FROM THE BROWSER
+## REACHING THE WEB SERVER(NGINX) FROM THE WEB BROWSER
+
 Now you have a running Pod. What’s next?
-- We need another Kubernetes object called Service to accept our request and pass it on to the Pod so we can access it through the browser
+*  We need another Kubernetes object called Service to accept our request and pass it on to the Pod so we can access it through the browser
+
 ```
 kubectl get pod nginx-pod  -o wide 
 ```
-![](./img/ScreenShot_6_27_2022_11_42_43_AM.png)
+![image](https://user-images.githubusercontent.com/71001536/176286169-b6239166-3eb2-4985-b3d2-eb9b7ad2b2ae.png)
 
 Let us try to access the Pod through its IP address from within the K8s cluster. To do this,
 
@@ -56,7 +75,7 @@ kubectl run curl --image=dareyregistry/curl -i --tty
 ```
 3. Run curl and point to the IP address of the Nginx Pod (Use the IP address of your own Pod) 
 >  `curl -v 10.0.0.163:80`
-![](./img/ScreenShot_6_27_2022_10_38_14_AM.png)
+
 
 ### Let us create a service to access the Nginx Pod
 
