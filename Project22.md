@@ -133,11 +133,11 @@ Apply the manifest with `kubectl apply -f nginx-pod.yaml`
 ```
 kubectl  port-forward svc/nginx-service 8089:80
 ```
-> Then go to your web browser and enter localhost:8089 – You should now be able to see the nginx page in the browser.
+* Then go to your web browser and enter localhost:8089 – You should now be able to see the nginx page in the browser.
 
-### UNDERSTANDING THE CONCEPT
+## UNDERSTANDING THE CONCEPT
 
-#### Expose a Service on a server’s public IP address & static port
+## Expose a Service on a server’s public IP address & static port
 
 A Node port service type exposes the service on a static port on the node’s IP address. NodePorts are in the 30000-32767 range by default, which means a NodePort is unlikely to match a service’s intended port (for example, 80 may be exposed as 30080).
 
@@ -203,9 +203,10 @@ kubectl get service nginx-service -o yaml
 
 * Copy and paste the load balancer’s address to the browser, and you will access the Nginx service
 
+![image](https://user-images.githubusercontent.com/71001536/176399133-85519648-d429-479c-bb3d-f2013d083ada.png)
 
 
-### CREATE A REPLICA SET
+## CREATE A REPLICA SET
 - Let us create a rs.yaml manifest for a ReplicaSet object
 ```
 #Part 1
