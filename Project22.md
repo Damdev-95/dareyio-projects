@@ -15,7 +15,7 @@ kubectl version --short --client
 ![image](https://user-images.githubusercontent.com/71001536/176284273-698bfa24-9d8c-4c06-be01-0b0ad1c95edb.png)
 
 
-# Deploying a random Pod
+# Deploying a NGINX Pod
 
 * Create a Pod `nginx-pod.yaml` manifest on your master node
 
