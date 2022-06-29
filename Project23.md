@@ -142,3 +142,58 @@ Apply the manifest file and you will get an output like below
 
 ![image](https://user-images.githubusercontent.com/71001536/176406515-62668d46-45b6-487e-aeca-2e758dccc1fd.png)
 
+`kubectl describe storageclass gp2`
+
+![image](https://user-images.githubusercontent.com/71001536/176420370-9a73df36-c65a-44d1-acb9-1410d5f13ded.png)
+
+* Then configure the Pod spec to use the PVC
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    tier: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        tier: frontend
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: nginx-volume-claim
+          mountPath: "/tmp/damdev"
+      volumes:
+      - name: nginx-volume-claim
+        persistentVolumeClaim:
+          claimName: nginx-volume-claim
+```
+![image](https://user-images.githubusercontent.com/71001536/176422404-306e2dde-19b2-46e5-8ac1-d3003b012814.png)
+
+
+## CONFIGMAP
+
+Using configMaps for persistence is not something you would consider for data storage. Rather it is a way to manage configuration files and ensure they are not lost as a result of Pod replacement.
+
+to demonstrate this, we will use the HTML file that came with Nginx. This file can be found in /usr/share/nginx/html/index.html  directory.
+
+Lets go through the below process so that you can see an example of a configMap use case.
+
+* Remove the volumeMounts and PVC sections of the manifest and use kubectl to apply the configuration
+
+* port forward the service and ensure that you are able to see the "Welcome to nginx" page
+
+* exec into the running container and keep a copy of the index.html file somewhere. For example
+
+`kubectl exec -it nginx-deployment-79d8c764bc-j6sp9 -- bash`
+  
+`cat /usr/share/nginx/html/index.html`
