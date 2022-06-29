@@ -257,6 +257,7 @@ Scaling Replicaset up and down:
 ```
 kubectl scale rs nginx-rs --replicas=5
 ```
+![image](https://user-images.githubusercontent.com/71001536/176393580-e0ed000b-042d-4b94-8609-393b9f80c2d2.png)
 
 **Declarative:**
 
@@ -305,31 +306,46 @@ spec:
 
 1. Get the Deployment
 ```
-kubectl get deployment <name od deployment>
+kubectl get deployment nginx-deployment
 ```
-![](./img/ScreenShot_6_27_2022_12_57_41_PM.png)
+![image](https://user-images.githubusercontent.com/71001536/176394741-bd548f96-1f87-414a-8334-f441df227019.png)
+
 2. Get the ReplicaSet
 ```
 kubectl get rs <name of replicasSet>
 ```
+![image](https://user-images.githubusercontent.com/71001536/176395126-0cf787bf-41ad-4307-b1cd-675e851fa7c9.png)
+
 3. Get the Pods
 ```
-kubectl get po <name of pods>
+kubectl get pod nginx-pod
 ```
 4. Scale the replicas in the Deployment to 15 Pods
 ```
 kubectl scale rs <name of replica> --replicas=<number of replica>
 ```
+![image](https://user-images.githubusercontent.com/71001536/176396381-83b6d06b-05f5-4e1d-9ab1-caae08872863.png)
+
+
 5. Exec into one of the Pod’s container to run Linux commands
 ```
 kubectl exec <name of pod> -it bash
 ```
-- List the files and folders in the Nginx directory `ls -ltr /etc/nginx/`
-- Check the content of the default Nginx configuration file `cat  /etc/nginx/conf.d/default.conf `
+![image](https://user-images.githubusercontent.com/71001536/176396775-aee31dd0-aac8-4c33-974a-7fdfccca77a5.png)
 
-### PERSISTING DATA FOR PODS
+*  List the files and folders in the Nginx directory `ls -ltr /etc/nginx/`
 
-If you were to update the content of the index.html file inside the container, and the Pod dies, that content will not be lost since a new Pod will replace the dead one.
+![image](https://user-images.githubusercontent.com/71001536/176396894-a9271664-bc17-49db-a525-7d957bf95263.png)
+
+* Check the content of the default Nginx configuration file `cat  /etc/nginx/conf.d/default.conf `
+
+![image](https://user-images.githubusercontent.com/71001536/176397121-8895e6e0-328f-4f81-995c-b94f16a695a6.png)
+
+![image](https://user-images.githubusercontent.com/71001536/176397475-708a7fa4-1d71-4006-ab17-5d291d7fe59e.png)
+
+## PERSISTING DATA FOR PODS
+
+Required to update the content of the index.html file inside the container, and the Pod dies, that content will not be lost since a new Pod will replace the dead one.
 
 Let us try that:
 
