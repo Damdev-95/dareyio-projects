@@ -157,15 +157,17 @@ spec:
       nodePort: 30080
 ```
 
-> To access the service, you must:
+* To access the service, you must:
 
-> Allow the inbound traffic in your EC2’s Security Group to the NodePort range 30000-32767
-> Get the public IP address of the node the Pod is running on, append the nodeport and access the app through the browser.
+* Allow the inbound traffic in your EC2’s Security Group to the NodePort range 30000-32767
+* Get the public IP address of the node the Pod is running on, append the nodeport and access the app through the browser.
 
+![image](https://user-images.githubusercontent.com/71001536/176379494-33f6cae5-204e-41f7-af0f-89356a91fe0a.png)
 
-### USING AWS LOAD BALANCER TO ACCESS YOUR SERVICE IN KUBERNETES.
+## USING AWS LOAD BALANCER TO ACCESS YOUR SERVICE IN KUBERNETES.
 
-To get the experience of this service type, update your service manifest and use the LoadBalancer type. Also, ensure that the selector references the Pods in the replica set.
+* To get the experience of this service type, update your service manifest and use the LoadBalancer type. Also, ensure that the selector references the Pods in the replica set.
+
 ```
 apiVersion: v1
 kind: Service
@@ -181,16 +183,27 @@ spec:
       targetPort: 80 # This is the port the container is listening at
 ```
 
-- Apply the configuration `kubectl apply -f nginx-service.yaml`
-- Get the newly created service `kubectl get service nginx-service`
-![](./img/ScreenShot_6_27_2022_1_49_39_PM.png)
-- An ELB resource will be created in your AWS console.
-- Get the output of the entire yaml for the service. You will some additional information about this service in which you did not define them in the yaml manifest. Kubernetes did this for you.
+* Run the configuration 
+
+`kubectl apply -f nginx-service.yaml`
+
+* Get the newly created service 
+
+`kubectl get service nginx-service`
+
+![image](https://user-images.githubusercontent.com/71001536/176380097-f4478fb0-0117-4a81-9d3c-34ce90f2988e.png)
+
+* An ELB resource will be created in your AWS console.
+* Get the output of the entire yaml for the service. You will some additional information about this service in which you did not define them in the yaml manifest. Kubernetes did this for you.
 ```
 kubectl get service nginx-service -o yaml
 ```
-- Copy and paste the load balancer’s address to the browser, and you will access the Nginx service
-![](./img/ScreenShot_6_27_2022_1_50_14_PM.png)
+
+![image](https://user-images.githubusercontent.com/71001536/176380308-5a637449-85db-43dc-b0af-9125155215b0.png)
+
+* Copy and paste the load balancer’s address to the browser, and you will access the Nginx service
+
+
 
 ### CREATE A REPLICA SET
 - Let us create a rs.yaml manifest for a ReplicaSet object
@@ -203,7 +216,9 @@ metadata:
 spec:
   replicas: 3
   selector:
-    app: nginx-pod
+    matchLabels:
+      app: nginx-pod
+    
 #Part 2
   template:
     metadata:
@@ -223,16 +238,25 @@ kubectl apply -f rs.yaml
 
 kubectl get pods
 ```
-![](./img/ScreenShot_6_27_2022_12_44_32_PM.png)
-Let us see how we can use both to scale our Replicaset up and down:
+
+## I had issue at using replica set 
+
+![image](https://user-images.githubusercontent.com/71001536/176391818-575ca0d6-7726-4ac7-9f13-2c9beef2e38d.png)
+
+## It was resolved by specifying the match label
+
+![image](https://user-images.githubusercontent.com/71001536/176392234-36d4ee94-55a5-4bae-bf3f-5cbe255bc97e.png)
+
+![image](https://user-images.githubusercontent.com/71001536/176392422-5c6af060-2988-4b78-85eb-d40eb137505c.png)
+
+Scaling Replicaset up and down:
 
 **Imperative:**
 
-- We can now easily scale our ReplicaSet up by specifying the desired number of replicas in an imperative command, like this:
+* We can now easily scale our ReplicaSet up by specifying the desired number of replicas in an imperative command, like this:
 ```
 kubectl scale rs nginx-rs --replicas=5
 ```
-![](./img/ScreenShot_6_27_2022_12_45_47_PM.png)
 
 **Declarative:**
 
