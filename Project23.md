@@ -243,6 +243,11 @@ EOF
 ```
 * Apply the new manifest file `kubectl apply -f nginx-configmap.yaml`
 
+![image](https://user-images.githubusercontent.com/71001536/176425023-e37c2ba5-5871-4ae7-9474-e9de544724fe.png)
+
+![image](https://user-images.githubusercontent.com/71001536/176425746-b5a82a49-78fc-4fdd-b904-a53b088cad35.png)
+
+
 * Update the deployment file to use the configmap in the volumeMounts section
 
 ```
@@ -281,4 +286,17 @@ spec:
             path: index.html
 EOF
 ```
+![image](https://user-images.githubusercontent.com/71001536/176425942-18809969-fa50-4bdd-a731-d6d2211114be.png)
+
+![image](https://user-images.githubusercontent.com/71001536/176426284-b1cd87c1-ecee-4818-bf9d-bb7c2f777697.png)
+
+* Update the configmap. You can either update the manifest file, or the kubernetes object directly. Lets use the latter approach this time.
+
+* Without restarting the pod, your site should be loaded automatically.
+* 
+* If you wish to restart the deployment for any reason, simply use the command 
+* `kubectl rollout restart deploy nginx-deployment` 
+* This will terminate the running pod and spin up a new one.
+
+![image](https://user-images.githubusercontent.com/71001536/176427611-bee8db82-986d-4efc-a9f1-ab08898118da.png)
 
