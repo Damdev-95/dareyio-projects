@@ -105,6 +105,7 @@ ssh -A ubuntu@private-ip
 * To execute ansible-playbook command and verify if your playbook actually works:
 ```
 cd ansible-config-mgt
+ansible all -m ping -v
 ansible-playbook -i inventory/dev.yaml playbooks/common.yaml
 ```
 
